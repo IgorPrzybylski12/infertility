@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :proteins
   resources :gene_products
   resources :genes
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
