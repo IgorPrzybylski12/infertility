@@ -1,0 +1,2 @@
+class GeneProduct < ApplicationRecord
+end

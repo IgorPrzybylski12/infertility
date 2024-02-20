@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_143243) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_144510) do
+# Could not dump table "gene_products" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
 # Could not dump table "genes" because of following StandardError
 #   Unknown type 'uuid' for column 'id'
 
