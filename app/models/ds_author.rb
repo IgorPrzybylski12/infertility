@@ -1,0 +1,2 @@
+class DsAuthor < ApplicationRecord
+end
