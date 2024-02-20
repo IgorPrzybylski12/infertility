@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  description: MyText
+  chromosomeNumber: 1
+  position: 1
+  loalization: MyText
+  position0: 1
+
+two:
+  name: MyText
+  description: MyText
+  chromosomeNumber: 1
+  position: 1
+  loalization: MyText
+  position0: 1
