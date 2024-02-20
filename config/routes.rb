@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :disorders
   resources :ds_authors
   resources :data_sources
   resources :poly_variants
