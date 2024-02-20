@@ -1,0 +1,32 @@
+<div id="<%= dom_id data_source %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Type:</strong>
+    <%= data_source.type %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= data_source.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Refnumber:</strong>
+    <%= data_source.refNumber %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Url:</strong>
+    <%= data_source.url %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">File path:</strong>
+    <%= data_source.file_path %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this data source", data_source, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this data source", edit_data_source_path(data_source), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
