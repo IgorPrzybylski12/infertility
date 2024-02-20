@@ -1,0 +1,17 @@
+<div id="<%= dom_id poly_variant %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= poly_variant.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Polyfrequency:</strong>
+    <%= poly_variant.polyFrequency %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this poly variant", poly_variant, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this poly variant", edit_poly_variant_path(poly_variant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

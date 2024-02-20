@@ -1,0 +1,2 @@
+class PolyVariant < ApplicationRecord
+end

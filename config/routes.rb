@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :poly_variants
   resources :mi_rnas
   resources :proteins
   resources :gene_products
