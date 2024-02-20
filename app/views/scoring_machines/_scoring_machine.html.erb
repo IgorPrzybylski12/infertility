@@ -1,0 +1,22 @@
+<div id="<%= dom_id scoring_machine %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= scoring_machine.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Numericvalue:</strong>
+    <%= scoring_machine.numericValue %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Perceptualvalue:</strong>
+    <%= scoring_machine.perceptualValue %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this scoring machine", scoring_machine, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this scoring machine", edit_scoring_machine_path(scoring_machine), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

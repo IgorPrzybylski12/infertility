@@ -1,0 +1,2 @@
+module ScoringMachinesHelper
+end

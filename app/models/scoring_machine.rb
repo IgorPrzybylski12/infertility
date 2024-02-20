@@ -1,0 +1,2 @@
+class ScoringMachine < ApplicationRecord
+end
