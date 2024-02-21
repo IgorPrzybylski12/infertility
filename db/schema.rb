@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_153116) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_21_074539) do
 # Could not dump table "data_sources" because of following StandardError
 #   Unknown type 'uuid' for column 'id'
 
@@ -30,6 +30,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_153116) do
 #   Unknown type 'uuid' for column 'id'
 
 # Could not dump table "poly_variants" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+# Could not dump table "poly_vx_ds" because of following StandardError
 #   Unknown type 'uuid' for column 'id'
 
 # Could not dump table "proteins" because of following StandardError
