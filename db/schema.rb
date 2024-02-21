@@ -51,7 +51,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_21_074706) do
     t.integer "chromosomeNumber"
     t.integer "position"
     t.text "loalization"
-    t.integer "position0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

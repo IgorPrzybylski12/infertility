@@ -23,8 +23,14 @@
 
   <div class="my-5">
     <%= form.label :gender %>
-    <%= form.text_field :gender, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <div class="flex items-center mt-2">
+      <%= form.check_box :male, class: "form-checkbox h-5 w-5 text-gray-600" %>
+      <span class="ml-2 text-gray-700">Male</span>
+      <%= form.check_box :female, class: "form-checkbox h-5 w-5 text-gray-600 ml-4" %>
+      <span class="ml-2 text-gray-700">Female</span>
+    </div>
   </div>
+
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>

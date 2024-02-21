@@ -6,7 +6,6 @@ class CreateGenes < ActiveRecord::Migration[7.1]
       t.integer :chromosomeNumber
       t.integer :position
       t.text :loalization
-      t.integer :position0
 
       t.timestamps
     end

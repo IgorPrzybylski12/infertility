@@ -23,6 +23,17 @@ class DisordersController < ApplicationController
   def create
     @disorder = Disorder.new(disorder_params)
 
+    if params[:disorder][:male] == "1" && params[:disorder][:female] == "1"
+      @disorder.gender = "male and female"
+    elsif params[:disorder][:male] == "1"
+      @disorder.gender = "male"
+    elsif params[:disorder][:female] == "1"
+      @disorder.gender = "female"
+    else
+      @disorder.gender = nil # Handle the case when neither is selected
+    end
+
+    # Save the record
     respond_to do |format|
       if @disorder.save
         format.html { redirect_to disorder_url(@disorder), notice: "Disorder was successfully created." }
@@ -36,6 +47,18 @@ class DisordersController < ApplicationController
 
   # PATCH/PUT /disorders/1 or /disorders/1.json
   def update
+    @disorder = Disorder.new(disorder_params)
+    
+    if params[:disorder][:male] == "1" && params[:disorder][:female] == "1"
+      @disorder.gender = "male and female"
+    elsif params[:disorder][:male] == "1"
+      @disorder.gender = "male"
+    elsif params[:disorder][:female] == "1"
+      @disorder.gender = "female"
+    else
+      @disorder.gender = nil # Handle the case when neither is selected
+    end
+    
     respond_to do |format|
       if @disorder.update(disorder_params)
         format.html { redirect_to disorder_url(@disorder), notice: "Disorder was successfully updated." }
