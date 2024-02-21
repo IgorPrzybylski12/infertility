@@ -8,7 +8,24 @@
     <%= link_to "New poly variant", new_poly_variant_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="poly_variants" class="min-w-full">
-    <%= render @poly_variants %>
-  </div>
+  <table class="w-4/5 table-auto border-collapse border border-gray-800">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="px-4 py-2">Name</th>
+          <th class="px-4 py-2">PolyFrequency</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @poly_variants.each do |poly_variant| %>
+          <tr>
+            <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
+            <td class="px-4 py-2 border border-gray-800"><%= poly_variant.polyFrequency %></td>
+            <% if action_name != "show" %>
+              <td><%= link_to "Show this poly variant", poly_variant, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
+              <td><%= link_to "Edit this poly varaint", edit_poly_variant_path(poly_variant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 </div>

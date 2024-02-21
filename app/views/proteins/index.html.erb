@@ -8,7 +8,25 @@
     <%= link_to "New protein", new_protein_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="proteins" class="min-w-full">
-    <%= render @proteins %>
-  </div>
+  <table class="w-4/5 table-auto border-collapse border border-gray-800">
+  <thead class="bg-gray-200">
+    <tr>
+      <th class="px-4 py-2">Name</th>
+      <th class="px-4 py-2">Description</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <% @proteins.each do |protein| %>
+      <tr>
+        <td class="px-4 py-2 border border-gray-800"><%= protein.name %></td>
+        <td class="px-4 py-2 border border-gray-800"><%= protein.description %></td>
+        <% if action_name != "show" %>
+          <td><%= link_to "Show this protein", protein, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
+          <td><%= link_to "Edit this protein", edit_protein_path(protein), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 </div>

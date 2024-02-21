@@ -8,7 +8,23 @@
     <%= link_to "New gene product", new_gene_product_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="gene_products" class="min-w-full">
-    <%= render @gene_products %>
-  </div>
+  <table class="w-4/5 table-auto border-collapse border border-gray-800">
+  <thead class="bg-gray-200">
+    <tr>
+      <th class="px-4 py-2">Name</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <% @gene_products.each do |gene_product| %>
+      <tr>
+        <td class="px-4 py-2 border border-gray-800"><%= gene_product.name %></td>
+        <% if action_name != "show" %>
+          <td><%= link_to "Show this gene product", gene_product, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
+          <td><%= link_to "Edit this gene product", edit_gene_product_path(gene_product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 </div>

@@ -8,7 +8,27 @@
     <%= link_to "New disorder", new_disorder_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="disorders" class="min-w-full">
-    <%= render @disorders %>
-  </div>
+  <table class="w-4/5 table-auto border-collapse border border-gray-800">
+  <thead class="bg-gray-200">
+    <tr>
+      <th class="px-4 py-2">Name</th>
+      <th class="px-4 py-2">Description</th>
+      <th class="px-4 py-2">Gender</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <% @disorders.each do |disorder| %>
+      <tr>
+        <td class="px-4 py-2 border border-gray-800"><%= disorder.name %></td>
+        <td class="px-4 py-2 border border-gray-800"><%= disorder.description %></td>
+        <td class="px-4 py-2 border border-gray-800"><%= disorder.gender %></td>
+        <% if action_name != "show" %>
+          <td><%= link_to "Show this disorder", disorder, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
+          <td><%= link_to "Edit this disorder", edit_disorder_path(disorder), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 </div>
