@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :scores
   resources :poly_vx_ds
   resources :scoring_machines
   resources :disorders
