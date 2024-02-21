@@ -11,37 +11,90 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_02_21_074706) do
-# Could not dump table "data_sources" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
+  enable_extension "plpgsql"
 
-# Could not dump table "disorders" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "data_sources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "type"
+    t.text "title"
+    t.string "refNumber"
+    t.text "url"
+    t.string "file_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "ds_authors" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "disorders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.string "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "gene_products" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "ds_authors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "fullname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "genes" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "gene_products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "mi_rnas" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "genes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.integer "chromosomeNumber"
+    t.integer "position"
+    t.text "loalization"
+    t.integer "position0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "poly_variants" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "mi_rnas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "poly_vx_ds" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "poly_variants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name"
+    t.text "polyFrequency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "proteins" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "poly_vx_ds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.float "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "scores" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "proteins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-# Could not dump table "scoring_machines" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "scores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.float "scoreValue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "scoring_machines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name"
+    t.integer "numericValue"
+    t.integer "perceptualValue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
