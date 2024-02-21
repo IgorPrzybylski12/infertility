@@ -153,6 +153,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.5)
     propshaft (0.8.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -276,6 +277,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  pg
   propshaft
   puma (>= 5.0)
   rails (~> 7.1.3)
