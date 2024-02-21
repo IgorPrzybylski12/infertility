@@ -7,8 +7,36 @@
     <h1 class="font-bold text-4xl">Data sources</h1>
     <%= link_to "New data source", new_data_source_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
-
-  <div id="data_sources" class="min-w-full">
-    <%= render @data_sources %>
+  
+  <div class="overflow-x-auto">
+    <table class="w-4/5 table-auto border-collapse border border-gray-800">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="px-4 py-2">Type</th>
+          <th class="px-4 py-2">Title</th>
+          <th class="px-4 py-2">Ref Number</th>
+          <th class="px-4 py-2">URL</th>
+          <th class="px-4 py-2">File Path</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @data_sources.each do |data_source| %>
+          <tr>
+            <td class="px-4 py-2 border border-gray-800"><%= data_source.type %></td>
+            <td class="px-4 py-2 border border-gray-800"><%= data_source.title %></td>
+            <td class="px-4 py-2 border border-gray-800"><%= data_source.refNumber %></td>
+            <td class="px-4 py-2 border border-gray-800"><%= data_source.url %></td>
+            <td class="px-4 py-2 border border-gray-800"><%= data_source.file_path %></td>
+            <% if action_name != "show" %>
+              <td><%= link_to "Show this disorder", data_source, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
+              <td><%= link_to "Edit this disorder", edit_data_source_path(data_source), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
+</div>
+
+
 </div>

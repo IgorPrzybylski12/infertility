@@ -1,2 +1,3 @@
 class Gene < ApplicationRecord
+    
 end
