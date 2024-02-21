@@ -19,7 +19,6 @@ class GenesTest < ApplicationSystemTestCase
     fill_in "Loalization", with: @gene.loalization
     fill_in "Name", with: @gene.name
     fill_in "Position", with: @gene.position
-    fill_in "Position0", with: @gene.position0
     click_on "Create Gene"
 
     assert_text "Gene was successfully created"
@@ -35,7 +34,6 @@ class GenesTest < ApplicationSystemTestCase
     fill_in "Loalization", with: @gene.loalization
     fill_in "Name", with: @gene.name
     fill_in "Position", with: @gene.position
-    fill_in "Position0", with: @gene.position0
     click_on "Update Gene"
 
     assert_text "Gene was successfully updated"

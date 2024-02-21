@@ -6,7 +6,6 @@ one:
   chromosomeNumber: 1
   position: 1
   loalization: MyText
-  position0: 1
 
 two:
   name: MyText
@@ -14,4 +13,3 @@ two:
   chromosomeNumber: 1
   position: 1
   loalization: MyText
-  position0: 1
