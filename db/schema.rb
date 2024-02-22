@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_080824) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_144003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_080824) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "data_sourceable_type"
-    t.uuid "data_sourceable_id"
+    t.bigint "data_sourceable_id"
     t.index ["data_sourceable_type", "data_sourceable_id"], name: "index_data_sources_on_data_sourceable"
   end
 
@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_080824) do
     t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "gene_id", null: false
+    t.index ["gene_id"], name: "index_gene_products_on_gene_id"
   end
 
   create_table "genes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -54,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_080824) do
     t.integer "chromosomeNumber"
     t.integer "position"
     t.text "loalization"
+    t.integer "position0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -99,4 +102,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_080824) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "gene_products", "genes"
 end

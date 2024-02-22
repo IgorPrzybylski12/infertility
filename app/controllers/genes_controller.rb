@@ -4,6 +4,7 @@ class GenesController < ApplicationController
   # GET /genes or /genes.json
   def index
     @genes = Gene.all
+    @gene_products =GeneProduct.all
   end
 
   # GET /genes/1 or /genes/1.json

@@ -46,36 +46,25 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-      var selectType = document.getElementById("selectType");
-      var divSelects = document.getElementById('divSelects');
-      hideAndShowSelects();
+      var selectType = document.getElementById("selectType")
+      var selectGene = document.getElementById("selectGene")
+      var selectPolyVariant = document.getElementById("selectPolyVariant")
+      var selectPolyVxD = document.getElementById("selectPolyVxD")
+      hideAndShowSelects()
+      selectType.addEventListener("change",  hideAndShowSelects)
+    })
+      function hideAndShowSelects(){
+        var selectedValue = selectType.value
 
-      selectType.addEventListener("change", hideAndShowSelects);
+        if (selectedValue === "Gene") {
+            document.getElementById('divSelects').innerHTML = "<%= form.collection_select :data_sourceable_id, Gene.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> "
+        } else if (selectedValue === "PolyVariant") {
+            document.getElementById('divSelects').innerHTML = "<%= form.collection_select :data_sourceable_id , PolyVariant.all, :id, :name, { prompt: "Select" },  class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %>"
+        } else if (selectedValue === "PolyVxD") {
+            document.getElementById('divSelects').innerHTML = "<%= form.collection_select :data_sourceable_id , PolyVxD.all, :id, :name, { prompt: "Select" },  class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %>" 
 
-      function hideAndShowSelects() {
-          var selectedValue = selectType.value;
-          var options = [];
-          var geneOptions = <%= @genes.to_json %>;
-          var polyVariantOptions = <%= @poly_variants.to_json %>;
-          var polyVxdOptions = <%= @poly_vxds.to_json %>;
-          if (selectedValue === "Gene") {
-              options = geneOptions;
-          } else if (selectedValue === "PolyVariant") {
-              options = polyVariantOptions;
-          } else if (selectedValue === "PolyVxD") {
-              options = polyVxdOptions;
-          }
-
-          var selectHTML = '<select name="data_sourceable_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">';
-          options.forEach(function(option) {
-              selectHTML += '<option value="' + option.id + '">' + option.name + '</option>';
-          });
-          selectHTML += '</select>';
-
-          divSelects.innerHTML = selectHTML;
+        }
       }
-});
-
 
   </script>
 
