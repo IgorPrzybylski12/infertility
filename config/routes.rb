@@ -17,6 +17,4 @@ Rails.application.routes.draw do
   #get "up" => "rails/poly_variants", as: :rails_health_check
   root "poly_variants#index"
 
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

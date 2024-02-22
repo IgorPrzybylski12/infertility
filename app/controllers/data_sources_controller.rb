@@ -3,7 +3,6 @@ class DataSourcesController < ApplicationController
 
   # GET /data_sources or /data_sources.json
   def index
-    @data_sources = DataSource.all
   end
 
   # GET /data_sources/1 or /data_sources/1.json
@@ -57,6 +56,8 @@ class DataSourcesController < ApplicationController
     end
   end
 
+ 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_source
@@ -65,6 +66,7 @@ class DataSourcesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def data_source_params
-      params.require(:data_source).permit(:type, :title, :refNumber, :url, :file_path)
+      params.require(:data_source).permit(:type, :title, :refNumber, :url, :file_path, :data_sourceable_type, :data_sourceable_id)
     end
+
 end
