@@ -1,32 +1,44 @@
-<div id="<%= dom_id gene %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= gene.name %>
-  </p>
+<p class="my-5">
+    <h1 class="font-medium mb-2 text-lg text-center">Name:</h1>
+    <h2 class="text-xl text-center"><%= gene.name %></h2>
+</p>
+<div class="border border-teal-400 w-120 p-20 text-center rounded-lg shadow-md  m-10" id="<%= dom_id gene %>">
+    <p class="my-5">
+        <strong class="block font-medium mb-1">Description:</strong>
+        <span class="text-gray-700"><%= gene.description %></span>
+    </p>
+    <p class="my-5">
+        <strong class="block font-medium mb-1">Chromosome Number:</strong>
+        <span class="text-gray-700"><%= gene.chromosomeNumber %></span>
+    </p>
+    <p class="my-5">
+        <strong class="block font-medium mb-1">Position:</strong>
+        <span class="text-gray-700"><%= gene.position %></span>
+    </p>
+    <p class="my-5"> 
+        <strong class="block font-medium mb-1">Localization:</strong>
+        <span class="text-gray-700"><%= gene.loalization %></span>
+    </p>
+</div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= gene.description %>
-  </p>
+<div class="grid grid-cols-2 gap-6">
+    <% @gene_products.each do |gene_product| %>
+        <% if gene_product.gene_id == gene.id %>
+            <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+                <p class="my-5">
+                    <h1 class="font-medium mb-2 text-lg">Name:</h1>
+                    <h2 class="text-xl"><%= gene_product.name %></h2>
+                </p>
+                <%= link_to "Show this gene product", gene_product, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %>
+            </div>
+        <% end %>
+    <% end %>
+</div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Chromosomenumber:</strong>
-    <%= gene.chromosomeNumber %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Position:</strong>
-    <%= gene.position %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Loalization:</strong>
-    <%= gene.loalization %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this gene", edit_gene_path(gene), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+<div>
+    <% if action_name != "show" %>
+        <%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Edit this gene", edit_gene_path(gene), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+        <hr class="mt-6">
+    <% end %>
 </div>

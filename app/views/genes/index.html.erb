@@ -17,8 +17,6 @@
           <th class="px-4 py-2">Position</th>
           <th class="px-4 py-2">Localization</th>
           <th class="px-4 py-2">Gene products</th>
-          <th></th>
-          <th></th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
@@ -29,13 +27,6 @@
             <td class="px-4 py-2 border border-gray-800"><%= gene.chromosomeNumber %></td>
             <td class="px-4 py-2 border border-gray-800"><%= gene.position %></td>
             <td class="px-4 py-2 border border-gray-800"><%= gene.loalization %></td>
-            <td>
-            <% @gene_products.each do |gene_product| %>
-                    <% if gene_product.gene_id == gene.id %>
-                      <%= link_to gene_product.name,gene_product ,class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %>
-                    <% end %>
-            <% end %>
-            </td>
             <% if action_name != "show" %>
               <td><%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
               <td><%= link_to "Edit this gene", edit_gene_path(gene), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>
