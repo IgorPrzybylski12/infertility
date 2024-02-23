@@ -8,6 +8,10 @@ class PolyVariantsController < ApplicationController
 
   # GET /poly_variants/1 or /poly_variants/1.json
   def show
+    @genes = Gene.all
+    @gene_products =GeneProduct.all
+    @proteins = Protein.all
+    @miRNAs = MiRna.all
   end
 
   # GET /poly_variants/new

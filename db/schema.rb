@@ -1,4 +1,16 @@
-ActiveRecord::Schema[7.1].define(version: 2024_02_23_100340) do
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema[7.1].define(version: 2024_02_23_132520) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -12,7 +24,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_100340) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "data_sourceable_type"
-    t.uuid "data_sourceable_id"
+    t.bigint "data_sourceable_id"
     t.index ["data_sourceable_type", "data_sourceable_id"], name: "index_data_sources_on_data_sourceable"
   end
 
@@ -48,6 +60,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_100340) do
     t.integer "position0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "poly_variant_id"
+    t.index ["poly_variant_id"], name: "index_genes_on_poly_variant_id"
   end
 
   create_table "mi_rnas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -96,6 +110,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_100340) do
   end
 
   add_foreign_key "gene_products", "genes"
+  add_foreign_key "genes", "poly_variants"
   add_foreign_key "mi_rnas", "gene_products"
   add_foreign_key "proteins", "gene_products"
 end

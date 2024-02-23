@@ -1,4 +1,4 @@
-<div id="<%= dom_id poly_variant %>">
+<div id="<%= dom_id poly_variant %>"  class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
   <p class="my-5">
     <strong class="block font-medium mb-1">Name:</strong>
     <%= poly_variant.name %>
@@ -8,10 +8,67 @@
     <strong class="block font-medium mb-1">Polyfrequency:</strong>
     <%= poly_variant.polyFrequency %>
   </p>
+</div>
+ <div class="grid grid-cols-2 gap-6">
+  <% if @genes %>
+        <% @genes.each do |gene| %>
+    <% if @gene_products %>
+        <% @gene_products.each do |gene_product| %>
+            <% if gene_product.gene_id == gene.id %>
+                <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+                    <p class="my-5">
+                        <h1 class="font-medium mb-2 text-lg">Name:</h1>
+                        <h2 class="text-xl"><%= gene_product.name %></h2>
+                        <% if gene_product.type == "Protein" && @proteins%>
+                            <% @proteins.each do |protein| %>
+                                <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+                                <p class="my-5"> 
+                                    <strong class="block font-medium mb-1">Protein name:</strong>
+                                </p>
+                                <p class="my-5"> 
+                                    <span class="text-gray-700"><%= protein.name %></span>
+                                </p>
+                                <p class="my-5"> 
+                                    <strong class="block font-medium mb-1">Protein description:</strong>
+                                </p>
+                                <p class="my-5"> 
+                                    <span class="text-gray-700"><%= protein.description %></span>
+                                </p>
+                            </div>
+                            <% end %>
+                        <% end %>
+                        <% if gene_product.type == "miRNA" && @miRNAs %>
+                                <% @miRNAs.each do |miRNA| %>
+                                    <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+                                        <p class="my-5">    
+                                            <strong class="block font-medium mb-1">miRNA name:</strong>
+                                        </p>
+                                        <p class="my-5"> 
+                                            <span class="text-gray-700"><%= miRNA.name %></span>
+                                        </p>
+                                        <p class="my-5"> 
+                                            <strong class="block font-medium mb-1">miRNA description:</strong>
+                                        </p>
+                                        <p class="my-5"> 
+                                            <span class="text-gray-700"><%= miRNA.description %></span>
+                                        </p>
+                                    </div>
+                                <% end %>
+                        <% end %>
+                    </p>
+                    <%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %>
+                </div>
+        <% end %>
+    <% end %>
+    <% end %>
+     <% end %>
+    <% end %>
+</div>
+
 
   <% if action_name != "show" %>
     <%= link_to "Show this poly variant", poly_variant, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this poly variant", edit_poly_variant_path(poly_variant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
-</div>
+
