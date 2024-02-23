@@ -22,31 +22,51 @@ class MiRnasController < ApplicationController
   # POST /mi_rnas or /mi_rnas.json
   def create
     @mi_rna = MiRna.new(mi_rna_params)
+    gene_product = GeneProduct.find(params[:mi_rna][:gene_product_id])
 
-    respond_to do |format|
-      if @mi_rna.save
-        format.html { redirect_to mi_rna_url(@mi_rna), notice: "Mi rna was successfully created." }
-        format.json { render :show, status: :created, location: @mi_rna }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @mi_rna.errors, status: :unprocessable_entity }
+    if gene_product && gene_product.type == 'miRNA'
+      respond_to do |format|
+          if @mi_rna.save
+            format.html { redirect_to mi_rna_url(@mi_rna), notice: "miRNA was successfully created." }
+            format.json { render :show, status: :created, location: @mi_rna }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @mi_rna.errors, status: :unprocessable_entity }
+          end
+        end
+        else
+          @mi_rna.errors.add(:gene_product_id, "Gene product must have type miRNA")
+          respond_to do |format|
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @mir_rna.errors, status: :unprocessable_entity }
+        end
       end
     end
-  end
+
 
   # PATCH/PUT /mi_rnas/1 or /mi_rnas/1.json
   def update
-    respond_to do |format|
-      if @mi_rna.update(mi_rna_params)
-        format.html { redirect_to mi_rna_url(@mi_rna), notice: "Mi rna was successfully updated." }
-        format.json { render :show, status: :ok, location: @mi_rna }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @mi_rna.errors, status: :unprocessable_entity }
+    gene_product = GeneProduct.find(params[:mi_rna][:gene_product_id])
+
+    if gene_product && gene_product.type == 'miRNA'
+      respond_to do |format|
+        if @mi_rna.update(mi_rna_params)
+          format.html { redirect_to mi_rna_url(@mi_rna), notice: "miRNA was successfully updated." }
+          format.json { render :show, status: :ok, location: @mi_rna }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @mi_rna.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @mi_rna.errors.add(:gene_product_id, "Gene product must have type miRNA")
+      respond_to do |format|
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @protein.errors, status: :unprocessable_entity }
       end
     end
   end
-
+  
   # DELETE /mi_rnas/1 or /mi_rnas/1.json
   def destroy
     @mi_rna.destroy!
@@ -65,6 +85,6 @@ class MiRnasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def mi_rna_params
-      params.require(:mi_rna).permit(:name, :description)
+      params.require(:mi_rna).permit(:name, :description, :gene_product_id)
     end
 end

@@ -22,30 +22,51 @@ class ProteinsController < ApplicationController
   # POST /proteins or /proteins.json
   def create
     @protein = Protein.new(protein_params)
-
-    respond_to do |format|
-      if @protein.save
-        format.html { redirect_to protein_url(@protein), notice: "Protein was successfully created." }
-        format.json { render :show, status: :created, location: @protein }
-      else
+    gene_product = GeneProduct.find(params[:protein][:gene_product_id])
+  
+    if gene_product && gene_product.type == 'Protein'
+      respond_to do |format|
+        if @protein.save
+          format.html { redirect_to protein_url(@protein), notice: "Protein was successfully created." }
+          format.json { render :show, status: :created, location: @protein }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @protein.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @protein.errors.add(:gene_product_id, "Gene product must habe type protein")
+      respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @protein.errors, status: :unprocessable_entity }
       end
     end
   end
+  
 
   # PATCH/PUT /proteins/1 or /proteins/1.json
   def update
-    respond_to do |format|
-      if @protein.update(protein_params)
-        format.html { redirect_to protein_url(@protein), notice: "Protein was successfully updated." }
-        format.json { render :show, status: :ok, location: @protein }
-      else
+    gene_product = GeneProduct.find(params[:protein][:gene_product_id])
+
+    if gene_product && gene_product.type == 'Protein'
+      respond_to do |format|
+        if @protein.update(protein_params)
+          format.html { redirect_to protein_url(@protein), notice: "Protein was successfully updated." }
+          format.json { render :show, status: :ok, location: @protein }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @protein.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @protein.errors.add(:gene_product_id, "Gene product must have type protein")
+      respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @protein.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   # DELETE /proteins/1 or /proteins/1.json
   def destroy
@@ -65,6 +86,6 @@ class ProteinsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def protein_params
-      params.require(:protein).permit(:name, :description)
+      params.require(:protein).permit(:name, :description, :gene_product_id)
     end
 end
