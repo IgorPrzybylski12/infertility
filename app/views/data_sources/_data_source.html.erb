@@ -24,6 +24,19 @@
     <%= data_source.file_path %>
   </p>
 
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Authors:</strong>
+    <% @data_source.ds_authors_ids.each do |author_id| %>
+      <% author = DsAuthor.find_by(id: author_id) %>
+      <% if author %>
+        <%= author.fullname %>
+        <br>
+      <% end %>
+    <% end %>
+  </p>
+
+
+
   <% if action_name != "show" %>
     <%= link_to "Show this data source", data_source, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this data source", edit_data_source_path(data_source), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>

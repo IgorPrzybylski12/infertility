@@ -8,6 +8,7 @@ class DsAuthorsController < ApplicationController
 
   # GET /ds_authors/1 or /ds_authors/1.json
   def show
+    
   end
 
   # GET /ds_authors/new

@@ -1,3 +1,5 @@
+
+
 class DataSource < ApplicationRecord
     has_many :ds_authors
     has_one :score

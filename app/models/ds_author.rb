@@ -1,3 +1,3 @@
 class DsAuthor < ApplicationRecord
-    has_one :data_source
+    has_many :data_sources
 end

@@ -1,19 +1,16 @@
-# This file is auto-generated from the current state of the database. Instead
-# of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
-#
-# This file is the source Rails uses to define your schema when running `bin/rails
-# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
-# be faster and is potentially less error prone than running all of your
-# migrations from scratch. Old migrations may fail to apply correctly if those
-# migrations use external dependencies or application code.
-#
-# It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema[7.1].define(version: 2024_02_26_115504) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_26_132829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "data_source_ds_authors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "data_source_id", null: false
+    t.uuid "ds_author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data_source_id"], name: "index_data_source_ds_authors_on_data_source_id"
+    t.index ["ds_author_id"], name: "index_data_source_ds_authors_on_ds_author_id"
+  end
 
   create_table "data_sources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "type"
@@ -23,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_115504) do
     t.string "file_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "ds_authors_ids", default: [], array: true
   end
 
   create_table "disorders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -117,6 +115,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_115504) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "data_source_ds_authors", "data_sources"
+  add_foreign_key "data_source_ds_authors", "ds_authors"
   add_foreign_key "gene_products", "genes"
   add_foreign_key "genes", "poly_variants"
   add_foreign_key "mi_rnas", "gene_products"
