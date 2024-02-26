@@ -65,6 +65,6 @@ class PolyVxDsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def poly_vx_d_params
-      params.require(:poly_vx_d).permit(:score)
+      params.require(:poly_vx_d).permit(:score, :disorder_id, :poly_variant_id, :scoring_machine_id)
     end
 end
