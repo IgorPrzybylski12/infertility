@@ -3,6 +3,7 @@
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(poly_vx_d.errors.count, "error") %> prohibited this poly_vx_d from being saved:</h2>
 
+
       <ul>
         <% poly_vx_d.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,9 +12,20 @@
     </div>
   <% end %>
 
+
   <div class="my-5">
-    <%= form.label :score %>
-    <%= form.text_field :score, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label "Poly Variant" %>
+    <%= form.collection_select :poly_varaint_id, PolyVariant.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
+  </div>
+  
+  <div class="my-5">
+    <%= form.label "Disorder" %>
+    <%= form.collection_select :disorder_id, Disorder.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
+  </div>
+
+  <div class="my-5">
+    <%= form.label "Scoring machine" %>
+    <%= form.collection_select :scoring_machine_id, ScoringMachine.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
   </div>
 
   <div class="inline">
