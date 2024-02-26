@@ -23,9 +23,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_082551) do
     t.string "file_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "data_sourceable_type"
-    t.bigint "data_sourceable_id"
-    t.index ["data_sourceable_type", "data_sourceable_id"], name: "index_data_sources_on_data_sourceable"
   end
 
   create_table "disorders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

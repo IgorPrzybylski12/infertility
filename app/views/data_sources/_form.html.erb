@@ -36,38 +36,6 @@
     <%= form.text_field :file_path, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-   <div class="my-5">
-    <%= form.label :data_sourceable_type %>
-    <%= form.select :data_sourceable_type, [['Gene', 'Gene'], ['Poly VxD', 'PolyVxD'], ['Poly variant', 'PolyVariant']], {}, { class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id: "selectType" } %>
-  </div>
-
-  <div id="divSelects" class="my-5">
-    <%= form.label :data_sourceble_id  %>  </div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-      var selectType = document.getElementById("selectType")
-      var selectGene = document.getElementById("selectGene")
-      var selectPolyVariant = document.getElementById("selectPolyVariant")
-      var selectPolyVxD = document.getElementById("selectPolyVxD")
-      hideAndShowSelects()
-      selectType.addEventListener("change",  hideAndShowSelects)
-    })
-      function hideAndShowSelects(){
-        var selectedValue = selectType.value
-
-        if (selectedValue === "Gene") {
-            document.getElementById('divSelects').innerHTML = "<%= form.collection_select :data_sourceable_id, Gene.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> "
-        } else if (selectedValue === "PolyVariant") {
-            document.getElementById('divSelects').innerHTML = "<%= form.collection_select :data_sourceable_id , PolyVariant.all, :id, :name, { prompt: "Select" },  class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %>"
-        } else if (selectedValue === "PolyVxD") {
-            document.getElementById('divSelects').innerHTML = "<%= form.collection_select :data_sourceable_id , PolyVxD.all, :id, :name, { prompt: "Select" },  class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %>" 
-
-        }
-      }
-
-  </script>
-
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
