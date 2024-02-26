@@ -5,9 +5,33 @@
   </p>
 
   <p class="my-5">
+    <strong class="block font-medium mb-1">Data source</strong>
+    <% data_source = DataSource.find(score.data_source_id) %>
+    <%= data_source.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Data source is for:</strong>
+    <% if score.scoreable_type == 'PolyVariant' %>
+      <% some_model = PolyVariant.find(score.scoreable_id) %>
+      <%= some_model.name %>
+    <% elsif score.scoreable_type == 'Disorder' %>
+      <% another_model = Disorder.find(score.scoreable_id) %>
+      <%= another_model.name %>
+    <% elsif score.scoreable_type == 'ScoringMachine' %>
+      <% another_model = ScoringMachine.find(score.scoreable_id) %>
+      <%= another_model.name %>
+    <% else %>
+      Unknown
+    <% end %>
+  </p>
+
+  <p class="my-5">
     <strong class="block font-medium mb-1">Type:</strong>
     <%= score.scoreable_type %>
   </p>
+
+   
 
   <% if action_name != "show" %>
     <%= link_to "Show this score", score, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

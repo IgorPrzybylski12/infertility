@@ -15,9 +15,14 @@
     <%= form.label "Score Value in %" %>
     <%= form.text_field :scoreValue, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+
+   <div class="my-5">
+    <%= form.label "Datab source" %>
+    <%= form.collection_select :data_source_id, DataSource.all, :id, :title, { }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %> 
+  </div>
     
   <div class="my-5">
-    <%= form.label "Select an Option" %>
+    <%= form.label "Data source is for" %>
     <%= form.collection_select :scoreable_id, (PolyVariant.all + Disorder.all + ScoringMachine.all), :id, :name, { }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id: "select_option" %> 
   </div>
 

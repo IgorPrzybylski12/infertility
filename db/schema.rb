@@ -1,4 +1,16 @@
-ActiveRecord::Schema[7.1].define(version: 2024_02_26_100358) do
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema[7.1].define(version: 2024_02_26_115504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -11,7 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_100358) do
     t.string "file_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    end
+  end
 
   create_table "disorders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "name"
@@ -92,6 +104,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_100358) do
     t.datetime "updated_at", null: false
     t.string "scoreable_type"
     t.uuid "scoreable_id"
+    t.uuid "data_source_id", null: false
+    t.index ["data_source_id"], name: "index_scores_on_data_source_id"
     t.index ["scoreable_id"], name: "index_scores_on_scoreable_id"
   end
 
@@ -110,4 +124,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_100358) do
   add_foreign_key "poly_vx_ds", "poly_variants"
   add_foreign_key "poly_vx_ds", "scoring_machines"
   add_foreign_key "proteins", "gene_products"
+  add_foreign_key "scores", "data_sources"
 end

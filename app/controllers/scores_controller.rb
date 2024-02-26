@@ -69,7 +69,7 @@ class ScoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def score_params      
-      params.require(:score).permit(:scoreValue, :scoreable_type, :scoreable_id)
+      params.require(:score).permit(:scoreValue, :scoreable_type, :scoreable_id, :data_source_id)
     end
 
     def settingType
