@@ -15,6 +15,11 @@
     <%= form.label "Score Value in %" %>
     <%= form.text_field :scoreValue, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+    
+  <div class="my-5">
+    <%= form.label "Select an Option" %>
+    <%= form.collection_select :scoreable_id, (PolyVariant.all + Disorder.all + ScoringMachine.all), :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id: "select_option" %> 
+  </div>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>

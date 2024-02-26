@@ -23,6 +23,8 @@ class ScoresController < ApplicationController
   def create
     @score = Score.new(score_params)
 
+    settingType()
+
     respond_to do |format|
       if @score.save
         format.html { redirect_to score_url(@score), notice: "Score was successfully created." }
@@ -36,6 +38,8 @@ class ScoresController < ApplicationController
 
   # PATCH/PUT /scores/1 or /scores/1.json
   def update
+    settingType()
+
     respond_to do |format|
       if @score.update(score_params)
         format.html { redirect_to score_url(@score), notice: "Score was successfully updated." }
@@ -64,7 +68,22 @@ class ScoresController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def score_params
-      params.require(:score).permit(:scoreValue)
+    def score_params      
+      params.require(:score).permit(:scoreValue, :scoreable_type, :scoreable_id)
     end
+
+    def settingType
+      selected_id = params[:score][:scoreable_id]
+    
+      if PolyVariant.exists?(selected_id)
+        @score.scoreable_type = 'PolyVariant'
+      elsif Disorder.exists?(selected_id)
+        @score.scoreable_type = 'Disorder'
+      elsif ScoringMachine.exists?(selected_id)
+        @score.scoreable_type = 'ScoringMachine'
+      else
+        @score.errors.add(:base, "Invalid selected_id")
+        render :new and return
+      end
+    end 
 end
