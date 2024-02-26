@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_23_132520) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_26_081739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -84,6 +84,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_132520) do
     t.float "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "disorder_id"
+    t.uuid "poly_variant_id"
+    t.index ["disorder_id"], name: "index_poly_vx_ds_on_disorder_id"
+    t.index ["poly_variant_id"], name: "index_poly_vx_ds_on_poly_variant_id"
   end
 
   create_table "proteins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -112,5 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_132520) do
   add_foreign_key "gene_products", "genes"
   add_foreign_key "genes", "poly_variants"
   add_foreign_key "mi_rnas", "gene_products"
+  add_foreign_key "poly_vx_ds", "disorders"
+  add_foreign_key "poly_vx_ds", "poly_variants"
   add_foreign_key "proteins", "gene_products"
 end

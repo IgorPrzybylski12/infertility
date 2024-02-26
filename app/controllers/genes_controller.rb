@@ -20,7 +20,7 @@ class GenesController < ApplicationController
 
   # GET /genes/1/edit
   def edit
-  end
+  end 
 
   # POST /genes or /genes.json
   def create
