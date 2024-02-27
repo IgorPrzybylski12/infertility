@@ -4,10 +4,14 @@ class DisordersController < ApplicationController
   # GET /disorders or /disorders.json
   def index
     @disorders = Disorder.all
+
   end
 
   # GET /disorders/1 or /disorders/1.json
   def show
+    @poly_vx_ds = PolyVxD.all
+    @poly_variants = PolyVariant.all
+    @scoring_machines = ScoringMachine.all
   end
 
   # GET /disorders/new
@@ -30,7 +34,7 @@ class DisordersController < ApplicationController
     elsif params[:disorder][:female] == "1"
       @disorder.gender = "female"
     else
-      @disorder.gender = nil # Handle the case when neither is selected
+      @disorder.gender = nil 
     end
 
     # Save the record

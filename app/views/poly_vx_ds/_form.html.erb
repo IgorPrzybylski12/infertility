@@ -15,17 +15,17 @@
 
   <div class="my-5">
     <%= form.label "Poly Variant" %>
-    <%= form.collection_select :poly_varaint_id, PolyVariant.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
+    <%= form.collection_select :poly_variant_id, PolyVariant.all, :id, :name, { }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
   </div>
   
   <div class="my-5">
     <%= form.label "Disorder" %>
-    <%= form.collection_select :disorder_id, Disorder.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
+    <%= form.collection_select :disorder_id, Disorder.all, :id, :name, { }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
   </div>
 
   <div class="my-5">
     <%= form.label "Scoring machine" %>
-    <%= form.collection_select :scoring_machine_id, ScoringMachine.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
+    <%= form.collection_select :scoring_machine_id, ScoringMachine.all, :id, :name, { }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
   </div>
 
   <div class="inline">

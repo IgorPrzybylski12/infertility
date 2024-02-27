@@ -19,6 +19,7 @@
         <strong class="block font-medium mb-1">Localization:</strong>
         <span class="text-gray-700"><%= gene.loalization %></span>
     </p>
+
   <% if @gene_products %>
     <% @gene_products.each do |gene_product| %>
       <% if gene_product.gene_id == gene.id %>
@@ -26,8 +27,9 @@
       <% end %>
     <% end %>
   <% end %>
-
-      <%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to "Edit this gene", edit_gene_path(gene), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-      <hr class="mt-6">
+    <% if action_name != "show" %>
+        <%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Edit this gene", edit_gene_path(gene), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+        <hr class="mt-6">
+    <% end %>
 </div>

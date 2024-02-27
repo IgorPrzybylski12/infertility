@@ -10,8 +10,30 @@
   </p>
 
    <% @genes.each do |gene| %>
-        <%= render partial: 'genes/gene', locals: { gene: gene } %>
+        <% if gene.poly_variant_id == poly_variant.id %>
+          <%= render partial: 'genes/gene', locals: { gene: gene } %>
+        <% end %>
       <% end %>
+
+  
+
+   <% @poly_vx_ds.each do |poly_vx_d| %>
+      <% if poly_vx_d.poly_variant_id == poly_variant.id %>
+        <% @disorders.each do |disorder| %>
+          <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+            <% if disorder.id == poly_vx_d.disorder_id %>
+              <%= render partial: 'disorders/disorder', locals: { disorder: disorder } %>
+            <% end %>
+          <% end %>
+          <% @scoring_machines.each do |scoring_machine| %>
+            <% if scoring_machine.id == poly_vx_d.scoring_machine_id %>
+              <%= render partial: 'scoring_machines/scoring_machine', locals: { scoring_machine: scoring_machine } %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    
   <% if action_name != "show" %>
     <%= link_to "Show this poly variant", poly_variant, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this poly variant", edit_poly_variant_path(poly_variant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
