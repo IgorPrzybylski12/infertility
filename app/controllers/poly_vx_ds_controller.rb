@@ -25,7 +25,7 @@ class PolyVxDsController < ApplicationController
 
     respond_to do |format|
       if @poly_vx_d.save
-        format.html { redirect_to poly_vx_d_url(@poly_vx_d), notice: "Poly vx d was successfully created." }
+        format.html { redirect_to poly_vx_d_url(@poly_vx_d), notice: "Connection was successfully created." }
         format.json { render :show, status: :created, location: @poly_vx_d }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class PolyVxDsController < ApplicationController
   def update
     respond_to do |format|
       if @poly_vx_d.update(poly_vx_d_params)
-        format.html { redirect_to poly_vx_d_url(@poly_vx_d), notice: "Poly vx d was successfully updated." }
+        format.html { redirect_to poly_vx_d_url(@poly_vx_d), notice: "Connection was successfully updated." }
         format.json { render :show, status: :ok, location: @poly_vx_d }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class PolyVxDsController < ApplicationController
     @poly_vx_d.destroy!
 
     respond_to do |format|
-      format.html { redirect_to poly_vx_ds_url, notice: "Poly vx d was successfully destroyed." }
+      format.html { redirect_to poly_vx_ds_url, notice: "Connection was successfully destroyed." }
       format.json { head :no_content }
     end
   end
