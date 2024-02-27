@@ -1,4 +1,5 @@
 <div id="<%= dom_id poly_variant %>"  class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+<h1 class="text-2xl">Poly Variant:</h1>
   <p class="my-5">
     <strong class="block font-medium mb-1">Name:</strong>
     <%= poly_variant.name %>
@@ -11,23 +12,27 @@
 
    <% @genes.each do |gene| %>
         <% if gene.poly_variant_id == poly_variant.id %>
-          <%= render partial: 'genes/gene', locals: { gene: gene } %>
+          <div  class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+            <%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+            <%= render partial: 'genes/gene', locals: { gene: gene } %>
+          </div>
         <% end %>
       <% end %>
-
   
-
+ 
    <% @poly_vx_ds.each do |poly_vx_d| %>
       <% if poly_vx_d.poly_variant_id == poly_variant.id %>
         <% @disorders.each do |disorder| %>
           <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
             <% if disorder.id == poly_vx_d.disorder_id %>
               <%= render partial: 'disorders/disorder', locals: { disorder: disorder } %>
+              <%= link_to "Show this disorder", disorder, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
             <% end %>
           <% end %>
           <% @scoring_machines.each do |scoring_machine| %>
             <% if scoring_machine.id == poly_vx_d.scoring_machine_id %>
-              <%= render partial: 'scoring_machines/scoring_machine', locals: { scoring_machine: scoring_machine } %>
+              <%= render partial: 'scoring_machines/scoring_machine', locals: { scoring_machine: scoring_machine} %>
+              <%= link_to "Show this Scoring machine", scoring_machine, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
             <% end %>
           <% end %>
           <% @scores.each do |score|%>
@@ -35,6 +40,7 @@
                 <% @data_sources.each do |data_source| %>
                   <% if score.data_source_id == data_source.id %>
                     <%= render partial: 'data_sources/data_source', locals: { data_source: data_source } %>
+                    <%= link_to "Show this data source", data_source, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
                   <% end %>
                 <% end %>
               <% end %>
@@ -47,7 +53,10 @@
       <% if score.scoreable_type == "PolyVariant" && score.scoreable_id == poly_variant.id %>
         <% @data_sources.each do |data_source| %>
           <% if score.data_source_id == data_source.id %>
-            <%= render partial: 'data_sources/data_source', locals: { data_source: data_source } %>
+            <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+              <%= render partial: 'data_sources/data_source', locals: { data_source: data_source } %>
+              <%= link_to "Show this data source", data_source, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+            </div>
           <% end %>
         <% end %>
       <% end %>
@@ -58,4 +67,4 @@
     <%= link_to "Edit this poly variant", edit_poly_variant_path(poly_variant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
-<div>
+</div>

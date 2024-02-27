@@ -1,4 +1,5 @@
-<div class="border border-teal-400 w-120 p-20 text-center rounded-lg shadow-md  m-10" id="<%= dom_id gene %>">
+<div  id="<%= dom_id gene %>">
+<h1 class="text-2xl">Gene:</h1>
   <p class="my-5">
       <h1 class="font-medium mb-2 text-lg text-center">Name:</h1>
       <h2 class="text-xl text-center"><%= gene.name %></h2>
@@ -23,20 +24,29 @@
   <% if @gene_products %>
     <% @gene_products.each do |gene_product| %>
       <% if gene_product.gene_id == gene.id %>
-          <%= render partial: 'gene_products/gene_product', locals: { gene_product: gene_product } %>
+        <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+            <%= render partial: 'gene_products/gene_product', locals: { gene_product: gene_product } %>
+            <%= link_to "Show this gene product", gene_product, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        </div>
       <% end %>
     <% end %>
   <% end %>
 
+  <% if @scores %>
    <% @scores.each do |score|%>
       <% if score.scoreable_type == "Gene" && score.scoreable_id == gene.id %>
         <% @data_sources.each do |data_source| %>
           <% if score.data_source_id == data_source.id %>
+          <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
             <%= render partial: 'data_sources/data_source', locals: { data_source: data_source } %>
+            <%= link_to "Show this data source", data_source, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          </div>
           <% end %>
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
+    
   <% if action_name != "show" %>
       <%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <%= link_to "Edit this gene", edit_gene_path(gene), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>

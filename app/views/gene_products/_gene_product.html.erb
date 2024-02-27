@@ -1,15 +1,20 @@
-<div id="<%= dom_id gene_product %>" class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
+<div id="<%= dom_id gene_product %>">
   <p class="my-5">
     <strong class="block font-medium mb-1">Name:</strong>
     <%= gene_product.name %>
   </p>
     <% if gene_product.type == "Protein" && @proteins %>
           <% @proteins.each do |protein| %>
+            <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
                <%= render partial: 'proteins/protein', locals: { protein: protein } %>
+                <%= link_to "Show this protein", protein, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+            </div>
           <% end %>
       <% elsif gene_product.type == "miRNA" && @miRNAs %>
           <% @miRNAs.each do |miRNA| %>
+            <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
                   <%= render partial: 'mi_rnas/mi_rna', locals: { mi_rna: miRNA } %>
+                  <%= link_to "Show this miRNA", miRNA, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
             <% end %>
         <% end %>
 

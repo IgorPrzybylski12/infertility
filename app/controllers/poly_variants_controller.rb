@@ -11,9 +11,13 @@ class PolyVariantsController < ApplicationController
     @genes = Gene.all
     @poly_vx_ds = PolyVxD.all
     @disorders = Disorder.all
+    @gene_products = GeneProduct.all
     @scoring_machines = ScoringMachine.all
     @scores = Score.all
     @data_sources = DataSource.all
+    @proteins = Protein.all
+    @miRNAs = MiRna.all
+    @ds_authors = DsAuthor.all
   end
 
   # GET /poly_variants/new

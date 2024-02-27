@@ -8,6 +8,7 @@ class DataSourcesController < ApplicationController
 
   # GET /data_sources/1 or /data_sources/1.json
   def show
+    @ds_authors = DsAuthor.all
   end
 
   # GET /data_sources/new
