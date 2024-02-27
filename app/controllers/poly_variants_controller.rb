@@ -12,6 +12,8 @@ class PolyVariantsController < ApplicationController
     @gene_products =GeneProduct.all
     @proteins = Protein.all
     @miRNAs = MiRna.all
+    @polyVxDs = PolyVxD.all
+    @disorders = Disorder.all
   end
 
   # GET /poly_variants/new
