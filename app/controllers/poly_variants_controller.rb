@@ -9,13 +9,11 @@ class PolyVariantsController < ApplicationController
   # GET /poly_variants/1 or /poly_variants/1.json
   def show
     @genes = Gene.all
-    @gene_products =GeneProduct.all
-    @proteins = Protein.all
-    @miRNAs = MiRna.all
     @poly_vx_ds = PolyVxD.all
     @disorders = Disorder.all
     @scoring_machines = ScoringMachine.all
-
+    @scores = Score.all
+    @data_sources = DataSource.all
   end
 
   # GET /poly_variants/new

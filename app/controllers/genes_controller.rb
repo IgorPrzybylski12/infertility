@@ -8,9 +8,8 @@ class GenesController < ApplicationController
 
   # GET /genes/1 or /genes/1.json
   def show
-    @gene_products =GeneProduct.all
-    @proteins = Protein.all
-    @miRNAs = MiRna.all
+    @gene_products = GeneProduct.all
+    @scores = Score.all
   end
 
   # GET /genes/new

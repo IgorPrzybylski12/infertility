@@ -1,4 +1,4 @@
-<div id="<%= dom_id data_source %>">
+<div id="<%= dom_id data_source %>" class="border border-teal-400 w-120 p-20 text-center rounded-lg shadow-md  m-10" >
   <p class="my-5">
     <strong class="block font-medium mb-1">Type:</strong>
     <%= data_source.type %>
@@ -23,18 +23,6 @@
     <strong class="block font-medium mb-1">File path:</strong>
     <%= data_source.file_path %>
   </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Authors:</strong>
-    <% @data_source.ds_authors_ids.each do |author_id| %>
-      <% author = DsAuthor.find_by(id: author_id) %>
-      <% if author %>
-        <%= author.fullname %>
-        <br>
-      <% end %>
-    <% end %>
-  </p>
-
 
 
   <% if action_name != "show" %>

@@ -30,7 +30,26 @@
               <%= render partial: 'scoring_machines/scoring_machine', locals: { scoring_machine: scoring_machine } %>
             <% end %>
           <% end %>
+          <% @scores.each do |score|%>
+              <% if score.scoreable_type == "PolyVxD" && score.scoreable_id == poly_vx_d.id %>
+                <% @data_sources.each do |data_source| %>
+                  <% if score.data_source_id == data_source.id %>
+                    <%= render partial: 'data_sources/data_source', locals: { data_source: data_source } %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
         </div>
+      <% end %>
+    <% end %>
+
+    <% @scores.each do |score|%>
+      <% if score.scoreable_type == "PolyVariant" && score.scoreable_id == poly_variant.id %>
+        <% @data_sources.each do |data_source| %>
+          <% if score.data_source_id == data_source.id %>
+            <%= render partial: 'data_sources/data_source', locals: { data_source: data_source } %>
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
     
