@@ -7,6 +7,16 @@
     <h1 class="font-bold text-4xl">Poly variants</h1>
     <%= link_to "New poly variant", new_poly_variant_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :name_cont %>
+    <%= f.search_field :name_cont %>
+
+    <%= f.label :polyFrequency_cont %>
+    <%= f.search_field :polyFrequency_cont %>
+
+    <%= f.submit %>
+  <% end %>
+  <br>
 
   <table class="w-4/5 table-auto border-collapse border border-gray-800">
       <thead class="bg-gray-200">

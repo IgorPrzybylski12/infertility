@@ -4,6 +4,10 @@ class PolyVariantsController < ApplicationController
   # GET /poly_variants or /poly_variants.json
   def index
     @poly_variants = PolyVariant.all
+
+    @q = PolyVariant.ransack(params[:q])
+    @poly_variants = @q.result(distinct: true)
+    
   end
 
   # GET /poly_variants/1 or /poly_variants/1.json
