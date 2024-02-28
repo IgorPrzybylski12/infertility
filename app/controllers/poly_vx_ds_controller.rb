@@ -8,6 +8,7 @@ class PolyVxDsController < ApplicationController
 
   # GET /poly_vx_ds/1 or /poly_vx_ds/1.json
   def show
+    @disorders = Disorder.all
   end
 
   # GET /poly_vx_ds/new

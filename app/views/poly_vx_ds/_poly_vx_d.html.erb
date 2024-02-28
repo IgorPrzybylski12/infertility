@@ -4,6 +4,22 @@
     <%= poly_vx_d.id %>
   </p>
 
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Disorder Name:</strong>
+      <%= poly_vx_d.disorder.name if poly_vx_d.disorder %>
+    </p>
+
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Poly Variant Name:</strong>
+      <%= poly_vx_d.poly_variant.name if poly_vx_d.poly_variant %>
+    </p>
+
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Scoring Machine Name:</strong>
+      <%= poly_vx_d.scoring_machine.name if poly_vx_d.scoring_machine %>
+    </p>
+
+
   <% if action_name != "show" %>
     <%= link_to "Show this connection", poly_vx_d, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this connection", edit_poly_vx_d_path(poly_vx_d), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
