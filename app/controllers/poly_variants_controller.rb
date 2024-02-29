@@ -10,6 +10,13 @@ class PolyVariantsController < ApplicationController
     
   end
 
+  def search
+    @q = PolyVariant.ransack(params[:q])
+    @poly_variants = @q.result(distinct: true)
+    # debugger
+    render :index
+  end
+
   # GET /poly_variants/1 or /poly_variants/1.json
   def show
     @genes = Gene.all
@@ -60,10 +67,12 @@ class PolyVariantsController < ApplicationController
       end
     end
   end
+  
 
   # DELETE /poly_variants/1 or /poly_variants/1.json
   def destroy
     @poly_variant.destroy!
+  
 
     respond_to do |format|
       format.html { redirect_to poly_variants_url, notice: "Poly variant was successfully destroyed." }

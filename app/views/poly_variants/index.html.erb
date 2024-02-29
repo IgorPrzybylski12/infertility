@@ -1,41 +1,61 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<% if notice.present? %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<% end %>
+
+<div class="flex justify-between items-center">
+  <h1 class="font-bold text-4xl">Poly variants</h1>
+  <%= link_to "New poly variant", new_poly_variant_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+</div>
+
+<div>
+  <%= search_form_for @q, url: search_poly_variants_path  do |f| %>
+    <div>
+      <div>
+        <%= f.select :m, options_for_select([["Any", "or"], ["All", "and"]], params[:q]&.dig(:m)), { include_blank: false } %>
+
+        <%= f.label :field_name_cont, "Search by Field" %>
+        <%= f.select :search_by, options_for_select([["PolyVariant Name", "poly_variant_name_cont"], ["Gene Name", "gene_name_cont"], ["GeneProduct Name", "gene_gene_product_name_cont"], ["Protein Name", "gene_gene_product_proteins_name_cont"], ["MiRNA Name", "gene_gene_product_mi_rnas_name_cont"], ["Disorder Name", "disorders_name_cont"]], selected: params[:q][:m]), {}, class: "form-select mt-1 block w-full" %>
+      </div>
+      <div>
+        <%= f.label :keyword_cont, "Contains" %>
+        <%= f.text_field :keyword_cont, class: "form-input mt-1 block w-full" %>
+      </div>
+    </div>
+    <div>
+      <%= f.submit "Search", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
   <% end %>
+</div>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Poly variants</h1>
-    <%= link_to "New poly variant", new_poly_variant_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-  <%= search_form_for @q do |f| %>
-    <%= f.label :name_cont %>
-    <%= f.search_field :name_cont %>
 
-    <%= f.label :polyFrequency_cont %>
-    <%= f.search_field :polyFrequency_cont %>
-
-    <%= f.submit %>
-  <% end %>
-  <br>
-
+<br>
+<div>
   <table class="w-4/5 table-auto border-collapse border border-gray-800">
-      <thead class="bg-gray-200">
-        <tr>
-          <th class="px-4 py-2">Name</th>
-          <th class="px-4 py-2">PolyFrequency</th>
-        </tr>
-      </thead>
-      <tbody class="bg-white divide-y divide-gray-200">
-        <% @poly_variants.each do |poly_variant| %>
-          <tr>
-            <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
-            <td class="px-4 py-2 border border-gray-800"><%= poly_variant.polyFrequency %></td>
-            <% if action_name != "show" %>
-              <td><%= link_to "Show this poly variant", poly_variant, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
-              <td><%= link_to "Edit this poly varaint", edit_poly_variant_path(poly_variant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>
-            <% end %>
-          </tr>
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="px-4 py-2">PolyVariant Name</th>
+        <th class="px-4 py-2">Gene Name</th>
+        <th class="px-4 py-2">GeneProduct Name</th>
+        <th class="px-4 py-2">Protein Name</th>
+        <th class="px-4 py-2">MiRNA Name</th>
+        <th class="px-4 py-2">Disorder Name</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <% @poly_variants.each do |poly_variant| %>
+        <% poly_variant.genes.each do |gene| %>
+          <% gene.gene_products.each do |gene_product| %>
+            <tr>
+              <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
+              <td class="px-4 py-2 border border-gray-800"><%= gene.name %></td>
+              <td class="px-4 py-2 border border-gray-800"><%= gene_product.name %></td>
+              <td class="px-4 py-2 border border-gray-800"><%= gene_product.proteins.first.name if gene_product.proteins.any? %></td>
+              <td class="px-4 py-2 border border-gray-800"><%= gene_product.mi_rnas.first.name if gene_product.mi_rnas.any? %></td>
+              <td class="px-4 py-2 border border-gray-800"></td>
+            </tr>
+          <% end %>
         <% end %>
-      </tbody>
-    </table>
+      <% end %>
+    </tbody>
+  </table>
 </div>

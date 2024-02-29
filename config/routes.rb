@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :poly_variants do
+    collection do
+      get :search
+    end
+  end
+
   resources :scores
   resources :poly_vx_ds
   resources :scoring_machines
@@ -10,11 +16,11 @@ Rails.application.routes.draw do
   resources :proteins
   resources :gene_products
   resources :genes
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
-  #get "up" => "rails/poly_variants", as: :rails_health_check
+  # get "up" => "rails/poly_variants", as: :rails_health_check
   root "poly_variants#index"
-
 end
