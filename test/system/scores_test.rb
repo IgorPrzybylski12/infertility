@@ -14,7 +14,7 @@ class ScoresTest < ApplicationSystemTestCase
     visit scores_url
     click_on "New score"
 
-    fill_in "Scorevalue", with: @score.scoreValue
+    fill_in "Score value", with: @score.score_value
     click_on "Create Score"
 
     assert_text "Score was successfully created"
@@ -25,7 +25,7 @@ class ScoresTest < ApplicationSystemTestCase
     visit score_url(@score)
     click_on "Edit this score", match: :first
 
-    fill_in "Scorevalue", with: @score.scoreValue
+    fill_in "Score value", with: @score.score_value
     click_on "Update Score"
 
     assert_text "Score was successfully updated"

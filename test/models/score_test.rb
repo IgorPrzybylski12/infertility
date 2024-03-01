@@ -3,7 +3,7 @@
 # Table name: scores
 #
 #  id             :uuid             not null, primary key
-#  scoreValue     :float
+#  score_value    :float
 #  scoreable_type :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null

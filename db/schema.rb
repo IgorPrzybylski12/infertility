@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_01_113237) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_01_114847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -94,7 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_113237) do
 
   create_table "poly_variants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "name"
-    t.text "polyFrequency"
+    t.text "poly_frequency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,7 +121,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_113237) do
   end
 
   create_table "scores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.float "scoreValue"
+    t.float "score_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "scoreable_type"

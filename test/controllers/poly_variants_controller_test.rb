@@ -17,7 +17,7 @@ class PolyVariantsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create poly_variant" do
     assert_difference("PolyVariant.count") do
-      post poly_variants_url, params: { poly_variant: { name: @poly_variant.name, polyFrequency: @poly_variant.polyFrequency } }
+      post poly_variants_url, params: { poly_variant: { name: @poly_variant.name, poly_frequency: @poly_variant.poly_frequency } }
     end
 
     assert_redirected_to poly_variant_url(PolyVariant.last)
@@ -34,7 +34,7 @@ class PolyVariantsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update poly_variant" do
-    patch poly_variant_url(@poly_variant), params: { poly_variant: { name: @poly_variant.name, polyFrequency: @poly_variant.polyFrequency } }
+    patch poly_variant_url(@poly_variant), params: { poly_variant: { name: @poly_variant.name, poly_frequency: @poly_variant.poly_frequency } }
     assert_redirected_to poly_variant_url(@poly_variant)
   end
 

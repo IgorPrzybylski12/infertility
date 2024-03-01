@@ -15,7 +15,7 @@ class PolyVariantsTest < ApplicationSystemTestCase
     click_on "New poly variant"
 
     fill_in "Name", with: @poly_variant.name
-    fill_in "Polyfrequency", with: @poly_variant.polyFrequency
+    fill_in "Poly frequency", with: @poly_variant.poly_frequency
     click_on "Create Poly variant"
 
     assert_text "Poly variant was successfully created"
@@ -27,7 +27,7 @@ class PolyVariantsTest < ApplicationSystemTestCase
     click_on "Edit this poly variant", match: :first
 
     fill_in "Name", with: @poly_variant.name
-    fill_in "Polyfrequency", with: @poly_variant.polyFrequency
+    fill_in "Poly frequency", with: @poly_variant.poly_frequency
     click_on "Update Poly variant"
 
     assert_text "Poly variant was successfully updated"

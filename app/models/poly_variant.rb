@@ -2,11 +2,11 @@
 #
 # Table name: poly_variants
 #
-#  id            :uuid             not null, primary key
-#  name          :text
-#  polyFrequency :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id             :uuid             not null, primary key
+#  name           :text
+#  poly_frequency :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 class PolyVariant < ApplicationRecord
     has_many :genes

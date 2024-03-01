@@ -95,6 +95,6 @@ class PolyVariantsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def poly_variant_params
-      params.require(:poly_variant).permit(:name, :polyFrequency)
+      params.require(:poly_variant).permit(:name, :poly_frequency)
     end
 end
