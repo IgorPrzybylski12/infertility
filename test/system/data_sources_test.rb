@@ -15,7 +15,7 @@ class DataSourcesTest < ApplicationSystemTestCase
     click_on "New data source"
 
     fill_in "File path", with: @data_source.file_path
-    fill_in "Refnumber", with: @data_source.refNumber
+    fill_in "Ref number", with: @data_source.refNumber
     fill_in "Title", with: @data_source.title
     fill_in "Type", with: @data_source.type
     fill_in "Url", with: @data_source.url
@@ -30,7 +30,7 @@ class DataSourcesTest < ApplicationSystemTestCase
     click_on "Edit this data source", match: :first
 
     fill_in "File path", with: @data_source.file_path
-    fill_in "Refnumber", with: @data_source.refNumber
+    fill_in "Ref number", with: @data_source.refNumber
     fill_in "Title", with: @data_source.title
     fill_in "Type", with: @data_source.type
     fill_in "Url", with: @data_source.url

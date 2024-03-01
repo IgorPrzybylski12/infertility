@@ -17,7 +17,7 @@ class DataSourcesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create data_source" do
     assert_difference("DataSource.count") do
-      post data_sources_url, params: { data_source: { file_path: @data_source.file_path, refNumber: @data_source.refNumber, title: @data_source.title, type: @data_source.type, url: @data_source.url } }
+      post data_sources_url, params: { data_source: { file_path: @data_source.file_path, ref_number: @data_source.ref_number, title: @data_source.title, type: @data_source.type, url: @data_source.url } }
     end
 
     assert_redirected_to data_source_url(DataSource.last)
@@ -34,7 +34,7 @@ class DataSourcesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update data_source" do
-    patch data_source_url(@data_source), params: { data_source: { file_path: @data_source.file_path, refNumber: @data_source.refNumber, title: @data_source.title, type: @data_source.type, url: @data_source.url } }
+    patch data_source_url(@data_source), params: { data_source: { file_path: @data_source.file_path, ref_number: @data_source.ref_number, title: @data_source.title, type: @data_source.type, url: @data_source.url } }
     assert_redirected_to data_source_url(@data_source)
   end
 

@@ -6,7 +6,7 @@
 #  data_sourceable_type :string
 #  ds_authors_ids       :uuid             default([]), is an Array
 #  file_path            :string
-#  refNumber            :string
+#  ref_number           :string
 #  title                :text
 #  type                 :text
 #  url                  :text

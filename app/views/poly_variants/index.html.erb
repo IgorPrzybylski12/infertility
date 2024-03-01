@@ -12,14 +12,12 @@
     <div>
       <div>
         <%= f.select :m, options_for_select([["Any", "or"], ["All", "and"]], params[:q]&.dig(:m)), { include_blank: false } %>
-
-        <%= f.select :p, options_for_select([["Containing", "cont"]], params[:q]&.dig(:p)), { include_blank: false } %>
       
         <%= f.label :field_name_cont, "Search by Field" %>
         <%= f.select :name_cont, options_for_select([["PolyVariant Name", "name"], ["Gene Name", "genes_name"], ["GeneProduct Name", "genes_gene_products_name"], ["Protein Name", "genes_gene_products_proteins_name"], ["MiRNA Name", "genes_gene_products_mi_rnas_name"], ["Disorder Name", "disorders_name"]], params[:q]&.dig(:g)), { include_blank: false } %>
       </div>
       <div>
-        <%= f.label :keyword_cont, "Contains" %>
+        <%= f.label :name_cont, "Contains" %>
         <%= f.text_field :name_cont, class: "form-input mt-1 block w-full" %>
       </div>
     </div>

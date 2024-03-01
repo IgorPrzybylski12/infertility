@@ -68,7 +68,7 @@ class DataSourcesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def data_source_params
-      params.require(:data_source).permit(:type, :title, :refNumber, :url, :file_path, :ds_authors_ids => [])
+      params.require(:data_source).permit(:type, :title, :ref_number, :url, :file_path, :ds_authors_ids => [])
     end
 
 end
