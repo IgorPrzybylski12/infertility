@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :poly_variants do
     collection do
       get :search
+      post :hello_test
     end
   end
 

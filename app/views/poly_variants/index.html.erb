@@ -29,12 +29,21 @@
   <% end %>
 </div>
 
+<%= form_with(model: @poly_variant, url: hello_test_poly_variants_path) do |form| %>
+  <%= form.submit "SUBMIT TEST", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<% end %>
+
+
+<div id="testowe_id">
+  SIEMANO
+</div>
+
 
 <br>
 <div>
   <table class="w-4/5 table-auto border-collapse border border-gray-800">
-    <thead class="bg-gray-200">
       <tr>
+    <thead class="bg-gray-200">
         <th class="px-4 py-2">PolyVariant Name</th>
         <th class="px-4 py-2">Gene Name</th>
         <th class="px-4 py-2">GeneProduct Name</th>

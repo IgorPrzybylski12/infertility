@@ -17,6 +17,13 @@ class PolyVariantsController < ApplicationController
     render :index
   end
 
+  def hello_test
+    Rails.logger.debug("HELLOOOOOOOO")
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   # GET /poly_variants/1 or /poly_variants/1.json
   def show
     @genes = Gene.all
