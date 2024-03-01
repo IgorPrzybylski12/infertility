@@ -4,7 +4,10 @@ class PolyVariantsController < ApplicationController
   # GET /poly_variants or /poly_variants.json
   def index
     @poly_variants = PolyVariant.all
-
+    
+    @poly_vx_ds = PolyVxD.all
+    @disorders = Disorder.all
+    @scoring_machines = ScoringMachine.all
     @q = PolyVariant.ransack(params[:q])
     @poly_variants = @q.result(distinct: true)
     

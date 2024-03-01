@@ -43,27 +43,40 @@
       <tr>
     <thead class="bg-gray-200">
         <th class="px-4 py-2">PolyVariant Name</th>
-        <th class="px-4 py-2">Gene Name</th>
         <th class="px-4 py-2">GeneProduct Name</th>
         <th class="px-4 py-2">Disorder Name</th>
+        <th class="px-4 py-2">Score numeric_value</th>
+        <th class="px-4 py-2">Score perceptual_value</th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
       <% @poly_variants.each do |poly_variant| %>
+        <tr>
         <% poly_variant.genes.each do |gene| %>
           <% gene.gene_products.each do |gene_product| %>
-            <tr>
               <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
-              <td class="px-4 py-2 border border-gray-800"><%= gene.name %></td>
               <% if gene_product.type = "Protein" %>
                 <td class="px-4 py-2 border border-gray-800"><%= gene_product.protein.name %></td>
               <% else %>
                 <td class="px-4 py-2 border border-gray-800"><%= gene_product.mi_rna.name if gene_product.mi_rna %></td>
                 <td class="px-4 py-2 border border-gray-800"></td>
               <% end %>
-            </tr>
+          <% end %>
+          <% @poly_vx_ds.each do |poly_vx_d| %>
+            <% @disorders.each do |disorder| %>
+              <% if poly_vx_d.poly_variant_id == poly_variant.id and poly_vx_d.disorder_id == disorder.id%>
+                <td class="px-4 py-2 border border-gray-800"><%= disorder.name %></td>
+              <% end %>
+            <% end %>
+            <% @scoring_machines.each do |scoring_machine| %>
+              <% if poly_vx_d.poly_variant_id == poly_variant.id and poly_vx_d.scoring_machine_id  == scoring_machine.id %>
+                <td class="px-4 py-2 border border-gray-800"><%= scoring_machine.numeric_value  %></td>
+                <td class="px-4 py-2 border border-gray-800"><%= scoring_machine.perceptual_value  %></td>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
+         </tr>
       <% end %>
     </tbody>
   </table>
