@@ -67,6 +67,6 @@ class GenesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def gene_params
-      params.require(:gene).permit(:name, :description, :chromosome_number, :position, :loalization, :poly_variant_id)
+      params.require(:gene).permit(:name, :description, :chromosome_number, :position, :localization, :poly_variant_id)
     end
 end

@@ -25,7 +25,7 @@
             <td class="px-4 py-2 border border-gray-800"><%= gene.description %></td>
             <td class="px-4 py-2 border border-gray-800"><%= gene.chromosome_number %></td>
             <td class="px-4 py-2 border border-gray-800"><%= gene.position %></td>
-            <td class="px-4 py-2 border border-gray-800"><%= gene.loalization %></td>
+            <td class="px-4 py-2 border border-gray-800"><%= gene.localization %></td>
             <% if action_name != "show" %>
               <td><%= link_to "Show this gene", gene, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
               <td><%= link_to "Edit this gene", edit_gene_path(gene), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %></td>

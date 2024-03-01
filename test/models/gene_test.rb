@@ -5,7 +5,7 @@
 #  id                :uuid             not null, primary key
 #  chromosome_number :integer
 #  description       :text
-#  loalization       :text
+#  localization      :text
 #  name              :text
 #  position          :integer
 #  position0         :integer

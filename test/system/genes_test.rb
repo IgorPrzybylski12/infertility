@@ -16,7 +16,7 @@ class GenesTest < ApplicationSystemTestCase
 
     fill_in "chromosome_number", with: @gene.chromosome_number
     fill_in "Description", with: @gene.description
-    fill_in "Loalization", with: @gene.loalization
+    fill_in "Localization", with: @gene.localization
     fill_in "Name", with: @gene.name
     fill_in "Position", with: @gene.position
     click_on "Create Gene"
@@ -31,7 +31,7 @@ class GenesTest < ApplicationSystemTestCase
 
     fill_in "chromosome_number", with: @gene.chromosome_number
     fill_in "Description", with: @gene.description
-    fill_in "Loalization", with: @gene.loalization
+    fill_in "Localization", with: @gene.localization
     fill_in "Name", with: @gene.name
     fill_in "Position", with: @gene.position
     click_on "Update Gene"
