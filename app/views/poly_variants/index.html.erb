@@ -45,8 +45,6 @@
         <th class="px-4 py-2">PolyVariant Name</th>
         <th class="px-4 py-2">Gene Name</th>
         <th class="px-4 py-2">GeneProduct Name</th>
-        <th class="px-4 py-2">Protein Name</th>
-        <th class="px-4 py-2">MiRNA Name</th>
         <th class="px-4 py-2">Disorder Name</th>
       </tr>
     </thead>
@@ -57,10 +55,12 @@
             <tr>
               <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
               <td class="px-4 py-2 border border-gray-800"><%= gene.name %></td>
-              <td class="px-4 py-2 border border-gray-800"><%= gene_product.name %></td>
-              <td class="px-4 py-2 border border-gray-800"><%= gene_product.proteins.first.name if gene_product.proteins.any? %></td>
-              <td class="px-4 py-2 border border-gray-800"><%= gene_product.mi_rnas.first.name if gene_product.mi_rnas.any? %></td>
-              <td class="px-4 py-2 border border-gray-800"></td>
+              <% if gene_product.type = "Protein" %>
+                <td class="px-4 py-2 border border-gray-800"><%= gene_product.protein.name %></td>
+              <% else %>
+                <td class="px-4 py-2 border border-gray-800"><%= gene_product.mi_rna.name if gene_product.mi_rna %></td>
+                <td class="px-4 py-2 border border-gray-800"></td>
+              <% end %>
             </tr>
           <% end %>
         <% end %>

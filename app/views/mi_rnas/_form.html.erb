@@ -23,7 +23,7 @@
 
   <div class="my-5">
     <%= form.label :gene_product_id %>
-    <%= form.collection_select :gene_product_id, GeneProduct.all, :id, :name, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
+    <%= form.collection_select :gene_product_id, GeneProduct.all, :id, :id, { prompt: "Select" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %> 
   </div>
 
 

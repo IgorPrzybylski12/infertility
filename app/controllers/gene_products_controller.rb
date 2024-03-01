@@ -65,6 +65,6 @@ class GeneProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def gene_product_params
-      params.require(:gene_product).permit(:name, :type, :gene_id)
+      params.require(:gene_product).permit(:type, :gene_id)
     end
 end

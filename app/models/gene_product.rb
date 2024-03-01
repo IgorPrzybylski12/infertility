@@ -3,7 +3,6 @@
 # Table name: gene_products
 #
 #  id         :uuid             not null, primary key
-#  name       :text
 #  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -19,8 +18,8 @@
 #
 class GeneProduct < ApplicationRecord
     belongs_to :gene
-    has_many :proteins
-    has_many :mi_rnas
+    has_one :protein
+    has_one :mi_rna
 
     self.inheritance_column = :my_type_column
 end

@@ -3,7 +3,6 @@
 # Table name: gene_products
 #
 #  id         :uuid             not null, primary key
-#  name       :text
 #  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
