@@ -17,7 +17,7 @@ class GenesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create gene" do
     assert_difference("Gene.count") do
-      post genes_url, params: { gene: { chromosomeNumber: @gene.chromosomeNumber, description: @gene.description, loalization: @gene.loalization, name: @gene.name, position: @gene.position} }
+      post genes_url, params: { gene: { chromosome_number: @gene.chromosome_number, description: @gene.description, loalization: @gene.loalization, name: @gene.name, position: @gene.position} }
     end
 
     assert_redirected_to gene_url(Gene.last)
@@ -34,7 +34,7 @@ class GenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update gene" do
-    patch gene_url(@gene), params: { gene: { chromosomeNumber: @gene.chromosomeNumber, description: @gene.description, loalization: @gene.loalization, name: @gene.name, position: @gene.position} }
+    patch gene_url(@gene), params: { gene: { chromosome_number: @gene.chromosome_number, description: @gene.description, loalization: @gene.loalization, name: @gene.name, position: @gene.position} }
     assert_redirected_to gene_url(@gene)
   end
 

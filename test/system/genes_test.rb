@@ -14,7 +14,7 @@ class GenesTest < ApplicationSystemTestCase
     visit genes_url
     click_on "New gene"
 
-    fill_in "Chromosomenumber", with: @gene.chromosomeNumber
+    fill_in "chromosome_number", with: @gene.chromosome_number
     fill_in "Description", with: @gene.description
     fill_in "Loalization", with: @gene.loalization
     fill_in "Name", with: @gene.name
@@ -29,7 +29,7 @@ class GenesTest < ApplicationSystemTestCase
     visit gene_url(@gene)
     click_on "Edit this gene", match: :first
 
-    fill_in "Chromosomenumber", with: @gene.chromosomeNumber
+    fill_in "chromosome_number", with: @gene.chromosome_number
     fill_in "Description", with: @gene.description
     fill_in "Loalization", with: @gene.loalization
     fill_in "Name", with: @gene.name

@@ -1,4 +1,16 @@
-ActiveRecord::Schema[7.1].define(version: 2024_02_26_132829) do
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema[7.1].define(version: 2024_03_01_104448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -20,7 +32,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_132829) do
     t.string "file_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "data_sourceable_type"
+    t.bigint "data_sourceable_id"
     t.uuid "ds_authors_ids", default: [], array: true
+    t.index ["data_sourceable_type", "data_sourceable_id"], name: "index_data_sources_on_data_sourceable"
+  end
+
+  create_table "data_sources_ds_authors", id: false, force: :cascade do |t|
+    t.bigint "data_source_id", null: false
+    t.bigint "ds_author_id", null: false
+    t.index ["data_source_id", "ds_author_id"], name: "idx_on_data_source_id_ds_author_id_8c357197af"
+    t.index ["ds_author_id", "data_source_id"], name: "idx_on_ds_author_id_data_source_id_fd71cc5b2c"
   end
 
   create_table "disorders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -35,6 +57,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_132829) do
     t.string "fullname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "data_source"
+    t.uuid "data_source_id"
   end
 
   create_table "gene_products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -49,7 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_132829) do
   create_table "genes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "name"
     t.text "description"
-    t.integer "chromosomeNumber"
+    t.integer "chromosome_number"
     t.integer "position"
     t.text "loalization"
     t.integer "position0"
