@@ -15,8 +15,8 @@ class ScoringMachinesTest < ApplicationSystemTestCase
     click_on "New scoring machine"
 
     fill_in "Name", with: @scoring_machine.name
-    fill_in "Numericvalue", with: @scoring_machine.numericValue
-    fill_in "Perceptualvalue", with: @scoring_machine.perceptualValue
+    fill_in "Numeric value", with: @scoring_machine.numeric_value
+    fill_in "Perceptual value", with: @scoring_machine.perceptual_value
     click_on "Create Scoring machine"
 
     assert_text "Scoring machine was successfully created"
@@ -28,8 +28,8 @@ class ScoringMachinesTest < ApplicationSystemTestCase
     click_on "Edit this scoring machine", match: :first
 
     fill_in "Name", with: @scoring_machine.name
-    fill_in "Numericvalue", with: @scoring_machine.numericValue
-    fill_in "Perceptualvalue", with: @scoring_machine.perceptualValue
+    fill_in "Numeric value", with: @scoring_machine.numeric_value
+    fill_in "Perceptual value", with: @scoring_machine.perceptual_value
     click_on "Update Scoring machine"
 
     assert_text "Scoring machine was successfully updated"

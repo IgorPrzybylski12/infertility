@@ -65,6 +65,6 @@ class ScoringMachinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def scoring_machine_params
-      params.require(:scoring_machine).permit(:name, :numericValue, :perceptualValue)
+      params.require(:scoring_machine).permit(:name, :numeric_value, :perceptual_value)
     end
 end

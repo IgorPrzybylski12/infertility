@@ -17,7 +17,7 @@ class ScoringMachinesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create scoring_machine" do
     assert_difference("ScoringMachine.count") do
-      post scoring_machines_url, params: { scoring_machine: { name: @scoring_machine.name, numericValue: @scoring_machine.numericValue, perceptualValue: @scoring_machine.perceptualValue } }
+      post scoring_machines_url, params: { scoring_machine: { name: @scoring_machine.name, numeric_value: @scoring_machine.numeric_value, perceptual_value: @scoring_machine.perceptual_value } }
     end
 
     assert_redirected_to scoring_machine_url(ScoringMachine.last)
@@ -34,7 +34,7 @@ class ScoringMachinesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update scoring_machine" do
-    patch scoring_machine_url(@scoring_machine), params: { scoring_machine: { name: @scoring_machine.name, numericValue: @scoring_machine.numericValue, perceptualValue: @scoring_machine.perceptualValue } }
+    patch scoring_machine_url(@scoring_machine), params: { scoring_machine: { name: @scoring_machine.name, numeric_value: @scoring_machine.numeric_value, perceptual_value: @scoring_machine.perceptual_value } }
     assert_redirected_to scoring_machine_url(@scoring_machine)
   end
 
