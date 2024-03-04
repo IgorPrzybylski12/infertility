@@ -40,19 +40,20 @@
 <br>
 <div>
   <table class="w-4/5 table-auto border-collapse border border-gray-800">
-      <tr>
     <thead class="bg-gray-200">
+      <tr>
         <th class="px-4 py-2">PolyVariant Name</th>
         <th class="px-4 py-2">GeneProduct Name</th>
         <th class="px-4 py-2">Disorder Name</th>
-        <th class="px-4 py-2">Score numeric_value</th>
-        <th class="px-4 py-2">Score perceptual_value</th>
+        <th class="px-4 py-2">Score numeric_value between poly variant and disorder</th>
+        <th class="px-4 py-2">Score perceptual_value between poly variant and disorder</th>
+        <th class="px-4 py-2">Score value between poly varaint and data source</th>
         <th></th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
       <% @poly_variants.each do |poly_variant| %>
-       <tr>
+        <tr>
           <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
           <% if poly_variant.genes.present? %>
             <% gene_product = poly_variant.genes.first.gene_products.first %>
@@ -91,9 +92,11 @@
             <td class="px-4 py-2 border border-gray-800"></td>
             <td class="px-4 py-2 border border-gray-800"></td>
           <% end %>
-          <td><%= link_to "Show this Poly Variant", poly_variant, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
+         <td class="px-4 py-2 border border-gray-800">
+        <% poly_variant.scores.where(scoreable_id: poly_variant.id).each do |score| %>
+          <%= score.score_value %>
+        <% end %>
+        </td>
+        <td><%= link_to "Show this Poly Variant", poly_variant, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
         </tr>
       <% end %>
-    </tbody>
-  </table>
-</div>
