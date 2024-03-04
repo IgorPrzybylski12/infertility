@@ -1,11 +1,11 @@
 <div id="<%= dom_id gene_product %>">
   <p class="my-5">
-    <% if gene_product.protein %>
+      <% if gene_product.protein %>
           <%= render partial: 'proteins/protein', locals: { protein: gene_product.protein } %>
           <%= link_to "Show this protein", gene_product.protein, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <% elsif gene_product.miRNA %>
-          <%= render partial: 'mi_rnas/mi_rna', locals: { mi_rna: gene_product.miRNA } %>
-          <%= link_to "Show this miRNA", gene_product.miRNA, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <% elsif gene_product.mi_rna %>
+          <%= render partial: 'mi_rnas/mi_rna', locals: { mi_rna: gene_product.mi_rna } %>
+          <%= link_to "Show this miRNA", gene_product.mi_rna, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
         <% end %>
 
   <% if action_name != "show" %>
