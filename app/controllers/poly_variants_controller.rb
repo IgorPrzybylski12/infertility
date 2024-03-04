@@ -20,6 +20,25 @@ class PolyVariantsController < ApplicationController
     render :index
   end
 
+  def add_new_search_option
+    # logic that will determine which partial to display
+    chosen_partial  = if params[:category] == 'Option 1'
+                        'partial_to_display'
+                      elsif params[:category] == 'Option 2'
+                        'another_partial_to_display'
+                      else
+                        'placeholder_text'
+                      end
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update(
+          :div_to_replace, partial: chosen_partial
+        )
+      end
+    end
+  end
+
   def hello_test
     Rails.logger.debug("HELLOOOOOOOO")
     respond_to do |format|

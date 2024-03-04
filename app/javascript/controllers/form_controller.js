@@ -1,13 +1,10 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+import { Controller } from '@hotwired/stimulus';
 
-window.callTurboAction = (event) => {
-    console.log('Hello, Stimulus!', event);
-  
+export default class extends Controller {
+  replaceForm(event) {
     const host = window.location.origin;
-  
-    fetch(`${host}/enrollments/add_new_search_option`, {
+
+    fetch(`${host}/poly_variants/add_new_search_option?category=${event.target.value}`, {
       method: 'post',
       headers: {
         'X-CSRF-Token': document.querySelector("[name='csrf-token']").content,
@@ -16,4 +13,5 @@ window.callTurboAction = (event) => {
     })
       .then((response) => response.text())
       .then((text) => window.Turbo.renderStreamMessage(text));
-  };
+  }
+}
