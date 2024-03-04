@@ -10,7 +10,7 @@
     <%= poly_variant.poly_frequency %>
   </p>
 
-  <div class="genes-grid grid grid-cols-2 gap-4">
+  <div>
     <% @genes.each do |gene| %>
       <% if gene.poly_variant_id == poly_variant.id %>
         <div class="border border-teal-400 p-6 m-10 text-center rounded-lg shadow-md hover:shadow-lg p-6">
