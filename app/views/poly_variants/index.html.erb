@@ -47,36 +47,54 @@
         <th class="px-4 py-2">Disorder Name</th>
         <th class="px-4 py-2">Score numeric_value</th>
         <th class="px-4 py-2">Score perceptual_value</th>
+        <th></th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
       <% @poly_variants.each do |poly_variant| %>
-        <tr>
-        <% poly_variant.genes.each do |gene| %>
-          <% gene.gene_products.each do |gene_product| %>
-              <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
-              <% if gene_product.type = "Protein" %>
-                <td class="px-4 py-2 border border-gray-800"><%= gene_product.protein.name %></td>
-              <% else %>
-                <td class="px-4 py-2 border border-gray-800"><%= gene_product.mi_rna.name if gene_product.mi_rna %></td>
-                <td class="px-4 py-2 border border-gray-800"></td>
-              <% end %>
-          <% end %>
-          <% @poly_vx_ds.each do |poly_vx_d| %>
-            <% @disorders.each do |disorder| %>
-              <% if poly_vx_d.poly_variant_id == poly_variant.id and poly_vx_d.disorder_id == disorder.id%>
-                <td class="px-4 py-2 border border-gray-800"><%= disorder.name %></td>
-              <% end %>
-            <% end %>
-            <% @scoring_machines.each do |scoring_machine| %>
-              <% if poly_vx_d.poly_variant_id == poly_variant.id and poly_vx_d.scoring_machine_id  == scoring_machine.id %>
-                <td class="px-4 py-2 border border-gray-800"><%= scoring_machine.numeric_value  %></td>
-                <td class="px-4 py-2 border border-gray-800"><%= scoring_machine.perceptual_value  %></td>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-         </tr>
+       <tr>
+  <td class="px-4 py-2 border border-gray-800"><%= poly_variant.name %></td>
+  <% if poly_variant.genes.present? %>
+    <% gene_product = poly_variant.genes.first.gene_products.first %>
+    <% if gene_product.present? %>
+      <% if gene_product.type == "Protein" %>
+        <td class="px-4 py-2 border border-gray-800"><%= gene_product.protein.name %></td>
+      <% else %>
+        <td class="px-4 py-2 border border-gray-800"><%= gene_product.mi_rna.name %></td>
+      <% end %>
+    <% else %>
+      <td class="px-4 py-2 border border-gray-800"></td>
+    <% end %>
+  <% else %>
+    <td class="px-4 py-2 border border-gray-800"></td>
+  <% end %>
+  <% if @disorders.present? %>
+    <% disorder = @disorders.find { |d| @poly_vx_ds.any? { |p| p.poly_variant_id == poly_variant.id && p.disorder_id == d.id } } %>
+    <% if disorder.present? %>
+      <td class="px-4 py-2 border border-gray-800"><%= disorder.name %></td>
+    <% else %>
+      <td class="px-4 py-2 border border-gray-800"></td>
+    <% end %>
+  <% else %>
+    <td class="px-4 py-2 border border-gray-800"></td>
+  <% end %>
+  <% if @scoring_machines.present? %>
+    <% scoring_machine = @scoring_machines.find { |sm| @poly_vx_ds.any? { |p| p.poly_variant_id == poly_variant.id && p.scoring_machine_id == sm.id } } %>
+    <% if scoring_machine.present? %>
+      <td class="px-4 py-2 border border-gray-800"><%= scoring_machine.numeric_value %></td>
+      <td class="px-4 py-2 border border-gray-800"><%= scoring_machine.perceptual_value %></td>
+    <% else %>
+      <td class="px-4 py-2 border border-gray-800"></td>
+      <td class="px-4 py-2 border border-gray-800"></td>
+    <% end %>
+  <% else %>
+    <td class="px-4 py-2 border border-gray-800"></td>
+    <td class="px-4 py-2 border border-gray-800"></td>
+  <% end %>
+  <td><%= link_to "Show this Poly Variant", poly_variant, class: "rounded-lg py-3 px-3 bg-gray-100 inline-block font-medium" %></td>
+</tr>
+
+         
       <% end %>
     </tbody>
   </table>

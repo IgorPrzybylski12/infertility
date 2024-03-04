@@ -73,7 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_123651) do
     t.text "name"
     t.text "description"
     t.integer "chromosome_number"
-    t.integer "position"
+    t.float "position"
     t.text "localization"
     t.integer "position0"
     t.datetime "created_at", null: false
