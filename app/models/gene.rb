@@ -7,7 +7,7 @@
 #  description       :text
 #  localization      :text
 #  name              :text
-#  position          :integer
+#  position          :float
 #  position0         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
