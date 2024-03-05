@@ -3,22 +3,19 @@ class PolyVariantsController < ApplicationController
 
   # GET /poly_variants or /poly_variants.json
   def index
-    @poly_variants = PolyVariant.all
-    
+    @q = PolyVariant.ransack(params[:q])
+    category = params[:category]
+  
+    if category.present?
+      @q = @q.result(distinct: true).ransack({name_cont: params[:search_text]})
+    end
+  
+    @poly_variants = @q.result(distinct: true)
     @poly_vx_ds = PolyVxD.all
     @disorders = Disorder.all
     @scoring_machines = ScoringMachine.all
-    @q = PolyVariant.ransack(params[:q])
-    @poly_variants = @q.result(distinct: true)
-    
   end
 
-  def search
-    @q = PolyVariant.ransack(params[:q])
-    @poly_variants = @q.result(distinct: true)
-    # debugger
-    render :index
-  end
 
   def add_new_search_option
     # logic that will determine which partial to display
