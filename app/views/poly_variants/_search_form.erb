@@ -1,7 +1,7 @@
 <%= form_with(url: poly_variants_path, local: true, method: 'get', class: 'w-full') do |form| %>
   <div class="flex items-center justify-between" data-controller="form">
     
-    <%= form.select :category, options_for_select([["PolyVariant Name", "name_cont"], ["Gene Name", "genes_name"], ["GeneProduct Name", "genes_gene_products_name"], ["Protein Name", "genes_gene_products_proteins_name"], ["MiRNA Name", "genes_gene_products_mi_rnas_name"], ["Disorder Name", "disorders_name"]], selected: params[:category]), { prompt: 'Select a category' }, { class: 'mb-0 ml-2', data: { action: "change->form#replaceForm" } } %>
+    <%= form.select :category, options_for_select([["PolyVariant Name", "name"], ["Gene Name", "genes_name"], ["GeneProduct Name", "genes_gene_products_name"], ["Protein Name", "genes_gene_products_proteins_name"], ["MiRNA Name", "genes_gene_products_mi_rnas_name"], ["Disorder Name", "disorders_name"]], selected: params[:category]), { prompt: 'Select a category' }, { class: 'mb-0 ml-2' } %>
     <%= form.text_field :poly_variant_name_search_text, placeholder: 'Must contains', class: '', value: params[:search_text], name: 'search_text' %>
 
     <%= form.submit 'Search', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
