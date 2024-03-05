@@ -1,7 +1,18 @@
 <%= form_with(url: poly_variants_path, local: true, method: 'get', class: 'w-full') do |form| %>
   <div class="flex items-center justify-between" data-controller="form">
     
-    <%= form.select :category, options_for_select([["PolyVariant Name", "name"], ["Gene Name", "genes_name"], ["GeneProduct Name", "genes_gene_products_name"], ["Protein Name", "genes_gene_products_proteins_name"], ["MiRNA Name", "genes_gene_products_mi_rnas_name"], ["Disorder Name", "disorders_name"]], selected: params[:category]), { prompt: 'Select a category' }, { class: 'mb-0 ml-2' } %>
+  <% grouped_options = [
+    ["Genes", Gene.attribute_names.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
+    ["Gene Products", GeneProduct.attribute_names.map { |attr| ["Gene Product #{attr.humanize}", "gene_products_#{attr}"] }],
+    ["Poly Variants", PolyVariant.attribute_names.map { |attr| ["Poly Variant #{attr.humanize}", "poly_variants_#{attr}"] }],
+    ["Disorders", Disorder.attribute_names.map { |attr| ["Disorder #{attr.humanize}", "disorders_#{attr}"] }]
+  ] %>
+
+  <%= form.select :category, grouped_options_for_select(
+    grouped_options.map { |group, options| [group, options] }
+  ), { prompt: 'Select a category' }, { class: 'mb-0 ml-2' } %>
+
+    
     <%= form.text_field :poly_variant_name_search_text, placeholder: 'Must contains', class: '', value: params[:search_text], name: 'search_text' %>
 
     <%= form.submit 'Search', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>

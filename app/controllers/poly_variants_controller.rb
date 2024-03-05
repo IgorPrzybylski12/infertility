@@ -8,23 +8,51 @@ class PolyVariantsController < ApplicationController
     @scoring_machines = ScoringMachine.all
     genes = Gene.all
 
+
     category = params[:category]
     if category.present?
-      if category == "name"
-        @q = PolyVariant.ransack(params[:q])
-        @q = @q.result(distinct: true).ransack({name_cont: params[:search_text]})
-        @poly_variants = @q.result(distinct: true)
-      elsif category == "genes_name"
-        @q = PolyVariant.joins(:genes).where(genes: { name: params[:search_text] }).ransack(params[:q])
-        @poly_variants = @q.result(distinct: true)
+      grouped_options = [
+          ["Genes", Gene.attribute_names.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
+          ["Gene Products", GeneProduct.attribute_names.map { |attr| ["Gene Product #{attr.humanize}", "gene_products_#{attr}"] }],
+          ["Poly Variants", PolyVariant.attribute_names.map { |attr| ["Poly Variant #{attr.humanize}", "poly_variants_#{attr}"] }],
+          ["Disorders", Disorder.attribute_names.map { |attr| ["Disorder #{attr.humanize}", "disorders_#{attr}"] }]
+        ]
+      category = params[:category]
+      grouped_options.each do |group, options|
+        options.each do |option|
+          if option.last == category
+            group = group.gsub(/[[:space:]]/, '_')
+            #group = 'genes_' + group
+            puts "\e[31mWybrany element należy do grupy: #{}\e[0m"
+            @q = PolyVariant.joins(group.downcase.to_sym).where("#{group.pluralize.downcase}.name": params[:search_text]).ransack(params[:q])
+            @poly_variants = @q.result(distinct: true)
+          end
+        end
       end
     else
       @poly_variants = PolyVariant.all
     end
-  
-    
-
   end
+
+    # category = params[:category]
+    # if category.present?
+    #   if category == "name"
+    #     @q = PolyVariant.ransack(params[:q])
+    #     @q = @q.result(distinct: true).ransack({name_cont: params[:search_text]})
+    #     @poly_variants = @q.result(distinct: true)
+    #   elsif category == "genes_name"
+    #     @q = PolyVariant.joins(:genes).where(genes: { name: params[:search_text] }).ransack(params[:q])
+    #     @poly_variants = @q.result(distinct: true)
+    #   end
+
+
+      # elsif category == "gene"
+      #   ransack({gene_name_cont: params[:search_name, description_cont: params[:search_description] })
+      # elsif category == "disorder"
+      #   ransack({disorder_name_cont: params[:search_name, disorderdescription_cont: params[:search_description] })
+      # end
+   
+
 
 
   def add_new_search_option
