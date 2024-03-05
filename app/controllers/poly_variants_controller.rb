@@ -3,17 +3,27 @@ class PolyVariantsController < ApplicationController
 
   # GET /poly_variants or /poly_variants.json
   def index
-    @q = PolyVariant.ransack(params[:q])
-    category = params[:category]
-  
-    if category.present?
-      @q = @q.result(distinct: true).ransack({name_cont: params[:search_text]})
-    end
-  
-    @poly_variants = @q.result(distinct: true)
     @poly_vx_ds = PolyVxD.all
     @disorders = Disorder.all
     @scoring_machines = ScoringMachine.all
+    genes = Gene.all
+
+    category = params[:category]
+    if category.present?
+      if category == "name"
+        @q = PolyVariant.ransack(params[:q])
+        @q = @q.result(distinct: true).ransack({name_cont: params[:search_text]})
+        @poly_variants = @q.result(distinct: true)
+      elsif category == "genes_name"
+        @q = PolyVariant.joins(:genes).where(genes: { name: params[:search_text] }).ransack(params[:q])
+        @poly_variants = @q.result(distinct: true)
+      end
+    else
+      @poly_variants = PolyVariant.all
+    end
+  
+    
+
   end
 
 
