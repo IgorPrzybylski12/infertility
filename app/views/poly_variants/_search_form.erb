@@ -1,11 +1,13 @@
 <%= form_with(url: poly_variants_path, local: true, method: 'get', class: 'w-full') do |form| %>
   <div class="flex items-center justify-between" data-controller="form">
     
-  <% grouped_options = [
-    ["Genes", Gene.attribute_names.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
-    ["Gene Products", GeneProduct.attribute_names.map { |attr| ["Gene Product #{attr.humanize}", "gene_products_#{attr}"] }],
+    <% grouped_options = [
     ["Poly Variants", PolyVariant.attribute_names.map { |attr| ["Poly Variant #{attr.humanize}", "poly_variants_#{attr}"] }],
-    ["Disorders", Disorder.attribute_names.map { |attr| ["Disorder #{attr.humanize}", "disorders_#{attr}"] }]
+    ["Genes", Gene.attribute_names.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
+    ["Disorders", Disorder.attribute_names.map { |attr| ["Disorder #{attr.humanize}", "disorders_#{attr}"] }],
+    ["Gene Products", GeneProduct.attribute_names.map { |attr| ["Gene Product #{attr.humanize}", "genes_gene_products_#{attr}"] }],
+    ["Proteins", Protein.attribute_names.map { |attr| ["Protein #{attr.humanize}", "genes_gene_products_proteins_#{attr}"] }],
+    ["miRNAs", MiRna.attribute_names.map { |attr| ["miRNA #{attr.humanize}", "genes_gene_products_mi_rnas_#{attr}"] }]
   ] %>
 
   <%= form.select :category, grouped_options_for_select(

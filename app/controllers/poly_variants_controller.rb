@@ -7,28 +7,27 @@ class PolyVariantsController < ApplicationController
     @disorders = Disorder.all
     @scoring_machines = ScoringMachine.all
     genes = Gene.all
-
-
+    gene_products = GeneProduct.all
+    mi_rnas = MiRna.all
+    proteins = Protein.all
+    debugger
     category = params[:category]
+    search_text = params[:search_text]
     if category.present?
-      grouped_options = [
-          ["Genes", Gene.attribute_names.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
-          ["Gene Products", GeneProduct.attribute_names.map { |attr| ["Gene Product #{attr.humanize}", "gene_products_#{attr}"] }],
-          ["Poly Variants", PolyVariant.attribute_names.map { |attr| ["Poly Variant #{attr.humanize}", "poly_variants_#{attr}"] }],
-          ["Disorders", Disorder.attribute_names.map { |attr| ["Disorder #{attr.humanize}", "disorders_#{attr}"] }]
-        ]
       category = params[:category]
-      grouped_options.each do |group, options|
-        options.each do |option|
-          if option.last == category
-            group = group.gsub(/[[:space:]]/, '_')
+            
+            # group = group.gsub(/[[:space:]]/, '_')
             #group = 'genes_' + group
-            puts "\e[31mWybrany element należy do grupy: #{}\e[0m"
-            @q = PolyVariant.joins(group.downcase.to_sym).where("#{group.pluralize.downcase}.name": params[:search_text]).ransack(params[:q])
-            @poly_variants = @q.result(distinct: true)
-          end
-        end
-      end
+            # genes_updated_at
+      puts "\e[31mWybrany element należy do grupy: #{category}\e[0m"
+            # debugger
+            # @q = PolyVariant.joins(group.downcase.to_sym).where("#{group.pluralize.downcase}.id LIKE ?", "%#{params[:search_text]}%").ransack(params[:q])
+            
+      ransack = {}
+      #ransack["#{category}_cont".to_sym]
+      ransack = PolyVariant.ransack({ "#{category}_cont".to_sym => search_text })
+
+      @poly_variants = ransack.result(distinct: true)
     else
       @poly_variants = PolyVariant.all
     end
