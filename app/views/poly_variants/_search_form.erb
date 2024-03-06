@@ -1,18 +1,28 @@
 <%= form_with(url: poly_variants_path, local: true, method: 'get', class: 'w-full') do |form| %>
   <div class="flex items-center justify-between" data-controller="form">
     
-    <% grouped_options = [
-    ["Poly Variants", PolyVariant.attribute_names.map { |attr| ["Poly Variant #{attr.humanize}", "poly_variants_#{attr}"] }],
-    ["Genes", Gene.attribute_names.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
-    ["Disorders", Disorder.attribute_names.map { |attr| ["Disorder #{attr.humanize}", "disorders_#{attr}"] }],
-    ["Gene Products", GeneProduct.attribute_names.map { |attr| ["Gene Product #{attr.humanize}", "genes_gene_products_#{attr}"] }],
-    ["Proteins", Protein.attribute_names.map { |attr| ["Protein #{attr.humanize}", "genes_gene_products_proteins_#{attr}"] }],
-    ["miRNAs", MiRna.attribute_names.map { |attr| ["miRNA #{attr.humanize}", "genes_gene_products_mi_rnas_#{attr}"] }]
-  ] %>
 
-  <%= form.select :category, grouped_options_for_select(
-    grouped_options.map { |group, options| [group, options] }
-  ), { prompt: 'Select a category' }, { class: 'mb-0 ml-2' } %>
+<% excluded_attributes = ['id', 'created_at', 'updated_at', 'position0', 'poly_variant_id', 'gene_product_id', 'data_source_id', 'data_source', 'data_sourceable_id', 'ds_authors_ids'] %>
+
+<% grouped_options = [
+  ["Poly Variants", PolyVariant.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Poly Variant #{attr.humanize}", "#{attr}"] }],
+  ["Genes", Gene.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
+  ["Disorders", Disorder.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Disorder #{attr.humanize}", "poly_vx_ds_disorder_#{attr}"] }],
+  ["Gene Products", GeneProduct.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Gene Product #{attr.humanize}", "genes_gene_products_#{attr}"] }],
+  ["Proteins", Protein.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Protein #{attr.humanize}", "genes_gene_products_protein_#{attr}"] }],
+  ["miRNAs", MiRna.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["miRNA #{attr.humanize}", "genes_gene_products_mi_rna_#{attr}"] }],
+  ["Data Sources", DataSource.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Data Source #{attr.humanize}", "scores_data_source_#{attr}"] }],
+  ["Data Authors", DsAuthor.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Data Author #{attr.humanize}", "scores_data_source_ds_authors_#{attr}"] }],
+  ["Score", [
+    ["Score numeric_value between Poly Variant and Disorder", "score_numeric_value_poly_variant_to_disorder"],
+    ["Score perceptual_value between Poly Variant and Disorder", "score_perceptual_value_poly_variant_to_disorder"],
+    ["Score value between Poly Variant and Data Source", "score_value_poly_variant_to_data_source"]
+  ]]
+] %>
+
+<%= form.select :category, grouped_options_for_select(
+  grouped_options.map { |group, options| [group, options] }
+), { prompt: 'Select a category' }, { class: 'mb-0 ml-2' } %>
 
     
     <%= form.text_field :poly_variant_name_search_text, placeholder: 'Must contains', class: '', value: params[:search_text], name: 'search_text' %>

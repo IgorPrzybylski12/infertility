@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 class Disorder < ApplicationRecord
-    has_many :poly_variants
+    has_many :poly_variantsd
     has_one :poly_vx_d
 
     # # `ransackable_attributes` by default returns all column names

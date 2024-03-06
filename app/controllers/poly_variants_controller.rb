@@ -10,9 +10,9 @@ class PolyVariantsController < ApplicationController
     gene_products = GeneProduct.all
     mi_rnas = MiRna.all
     proteins = Protein.all
-    debugger
     category = params[:category]
     search_text = params[:search_text]
+
     if category.present?
       category = params[:category]
             
@@ -25,6 +25,7 @@ class PolyVariantsController < ApplicationController
             
       ransack = {}
       #ransack["#{category}_cont".to_sym]
+      # debugger
       ransack = PolyVariant.ransack({ "#{category}_cont".to_sym => search_text })
 
       @poly_variants = ransack.result(distinct: true)

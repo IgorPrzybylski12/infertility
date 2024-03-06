@@ -12,6 +12,7 @@ class PolyVariant < ApplicationRecord
     has_many :genes
     has_many :disorders
     has_many :scores, as: :scoreable
+    has_many :poly_vx_ds
 
   # # `ransackable_attributes` by default returns all column names
   # # and any defined ransackers as an array of strings.
