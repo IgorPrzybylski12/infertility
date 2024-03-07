@@ -13,24 +13,42 @@ class PolyVariantsController < ApplicationController
     category = params[:category]
     search_text = params[:search_text]
 
-    if category.present?
-      category = params[:category]
+    # if category.present?
+    #   category = params[:category]
             
-            # group = group.gsub(/[[:space:]]/, '_')
-            #group = 'genes_' + group
-            # genes_updated_at
-      puts "\e[31mWybrany element należy do grupy: #{category}\e[0m"
-            # debugger
-            # @q = PolyVariant.joins(group.downcase.to_sym).where("#{group.pluralize.downcase}.id LIKE ?", "%#{params[:search_text]}%").ransack(params[:q])
+    #         # group = group.gsub(/[[:space:]]/, '_')
+    #         #group = 'genes_' + group
+    #         # genes_updated_at
+    #   puts "\e[31mWybrany element należy do grupy: #{category}\e[0m"
+    #         # debugger
+    #         # @q = PolyVariant.joins(group.downcase.to_sym).where("#{group.pluralize.downcase}.id LIKE ?", "%#{params[:search_text]}%").ransack(params[:q])
             
-      ransack = {}
-      #ransack["#{category}_cont".to_sym]
-      # debugger
-      ransack = PolyVariant.ransack({ "#{category}_cont".to_sym => search_text })
+    #   ransack = {}
+    #   #ransack["#{category}_cont".to_sym]
+    #   # debugger
+    #   ransack = PolyVariant.ransack({ "#{category}_cont".to_sym => search_text })
 
-      @poly_variants = ransack.result(distinct: true)
+    #   @poly_variants = ransack.result(distinct: true)
+    # else
+    #   @poly_variants = PolyVariant.all
+    # end
+    @poly_variants = if params[:category].present? && params[:search_text].present?
+      category = params[:category]
+      search_text = params[:search_text]
+      ransack_params = { "#{category}_cont".to_sym => search_text }
+
+      # Obsługa dodatkowych warunków
+      params.each do |key, value|
+        next unless key.start_with?("additional_condition_") && value.present?
+        condition = key.split("_").last
+        ransack_params[condition.to_sym] = value
+      end
+
+      ransack = PolyVariant.ransack(ransack_params)
+      ransack.result(distinct: true)
     else
-      @poly_variants = PolyVariant.all
+      PolyVariant.all
+      #@poly_variants = PolyVariant.all.as_json
     end
   end
 

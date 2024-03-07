@@ -1,32 +1,50 @@
-<%= form_with(url: poly_variants_path, local: true, method: 'get', class: 'w-full') do |form| %>
+<%= form_with(url: poly_variants_path, method: 'get', class: 'w-full') do |form| %>
   <div class="flex items-center justify-between" data-controller="form">
+    <div id="conditions_group">
+      <% excluded_attributes = ['id', 'created_at', 'updated_at', 'position0', 'poly_variant_id', 'gene_product_id', 'data_source_id', 'data_source', 'data_sourceable_id', 'ds_authors_ids'] %>
+
+      <% grouped_options = [
+        ["Poly Variants", PolyVariant.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Poly Variant #{attr.humanize}", "#{attr}"] }],
+        ["Genes", Gene.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
+        ["Disorders", Disorder.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Disorder #{attr.humanize}", "poly_vx_ds_disorder_#{attr}"] }],
+        ["Gene Products", GeneProduct.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Gene Product #{attr.humanize}", "genes_gene_products_#{attr}"] }],
+        ["Proteins", Protein.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Protein #{attr.humanize}", "genes_gene_products_protein_#{attr}"] }],
+        ["miRNAs", MiRna.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["miRNA #{attr.humanize}", "genes_gene_products_mi_rna_#{attr}"] }],
+        ["Data Sources", DataSource.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Data Source #{attr.humanize}", "scores_data_source_#{attr}"] }],
+        ["Data Authors", DsAuthor.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Data Author #{attr.humanize}", "scores_data_source_ds_authors_#{attr}"] }],
+        ["Score", [
+          ["Score numeric_value between Poly Variant and Disorder", "score_numeric_value_poly_variant_to_disorder"],
+          ["Score perceptual_value between Poly Variant and Disorder", "score_perceptual_value_poly_variant_to_disorder"],
+          ["Score value between Poly Variant and Data Source", "score_value_poly_variant_to_data_source"]
+        ]]
+      ] %>
+
+      <%= form.select :category, grouped_options_for_select(
+        grouped_options.map { |group, options| [group, options] }
+      ), { prompt: 'Select a category' }, { class: 'mb-0 ml-2', id: 'select0' } %>
+
+      <%= form.text_field :poly_variant_name_search_text, placeholder: 'Must contain', class: '', value: params[:search_text], name: 'search_text' %>
+    </div>
+
+    <div id="additional_conditions">
+      <!-- Dynamicznie dodane pola wyboru będą się tutaj pojawiać -->
+    </div>
+
+    <button type="button" id="add_condition_button">Add Condition</button>
     
-
-<% excluded_attributes = ['id', 'created_at', 'updated_at', 'position0', 'poly_variant_id', 'gene_product_id', 'data_source_id', 'data_source', 'data_sourceable_id', 'ds_authors_ids'] %>
-
-<% grouped_options = [
-  ["Poly Variants", PolyVariant.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Poly Variant #{attr.humanize}", "#{attr}"] }],
-  ["Genes", Gene.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Gene #{attr.humanize}", "genes_#{attr}"] }],
-  ["Disorders", Disorder.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Disorder #{attr.humanize}", "poly_vx_ds_disorder_#{attr}"] }],
-  ["Gene Products", GeneProduct.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Gene Product #{attr.humanize}", "genes_gene_products_#{attr}"] }],
-  ["Proteins", Protein.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Protein #{attr.humanize}", "genes_gene_products_protein_#{attr}"] }],
-  ["miRNAs", MiRna.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["miRNA #{attr.humanize}", "genes_gene_products_mi_rna_#{attr}"] }],
-  ["Data Sources", DataSource.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Data Source #{attr.humanize}", "scores_data_source_#{attr}"] }],
-  ["Data Authors", DsAuthor.attribute_names.reject { |attr| excluded_attributes.include?(attr) }.map { |attr| ["Data Author #{attr.humanize}", "scores_data_source_ds_authors_#{attr}"] }],
-  ["Score", [
-    ["Score numeric_value between Poly Variant and Disorder", "score_numeric_value_poly_variant_to_disorder"],
-    ["Score perceptual_value between Poly Variant and Disorder", "score_perceptual_value_poly_variant_to_disorder"],
-    ["Score value between Poly Variant and Data Source", "score_value_poly_variant_to_data_source"]
-  ]]
-] %>
-
-<%= form.select :category, grouped_options_for_select(
-  grouped_options.map { |group, options| [group, options] }
-), { prompt: 'Select a category' }, { class: 'mb-0 ml-2' } %>
-
-    
-    <%= form.text_field :poly_variant_name_search_text, placeholder: 'Must contains', class: '', value: params[:search_text], name: 'search_text' %>
-
     <%= form.submit 'Search', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
+  <div id="poly-variants-data" data-poly-variants="<%= @poly_variants_attributes.to_json %>">
+</div>
 <% end %>
+
+<script>
+    document.getElementById('add_condition_button').addEventListener('click', function() {
+        var selectField = document.getElementById('select0');
+        var clonedSelectField = selectField.cloneNode(true); 
+    
+        clonedSelectField.setAttribute('id', 'additional_select_field');
+
+        document.getElementById('additional_conditions').appendChild(clonedSelectField);
+    });
+</script>
