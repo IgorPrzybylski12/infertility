@@ -10,68 +10,32 @@ class PolyVariantsController < ApplicationController
     gene_products = GeneProduct.all
     mi_rnas = MiRna.all
     proteins = Protein.all
-    category = params[:category]
+  
     search_text = params[:search_text]
-
-    # if category.present?
-    #   category = params[:category]
-            
-    #         # group = group.gsub(/[[:space:]]/, '_')
-    #         #group = 'genes_' + group
-    #         # genes_updated_at
-    #   puts "\e[31mWybrany element należy do grupy: #{category}\e[0m"
-    #         # debugger
-    #         # @q = PolyVariant.joins(group.downcase.to_sym).where("#{group.pluralize.downcase}.id LIKE ?", "%#{params[:search_text]}%").ransack(params[:q])
-            
-    #   ransack = {}
-    #   #ransack["#{category}_cont".to_sym]
-    #   # debugger
-    #   ransack = PolyVariant.ransack({ "#{category}_cont".to_sym => search_text })
-
-    #   @poly_variants = ransack.result(distinct: true)
-    # else
-    #   @poly_variants = PolyVariant.all
-    # end
-    @poly_variants = if params[:category].present? && params[:search_text].present?
-      category = params[:category]
-      search_text = params[:search_text]
-      ransack_params = { "#{category}_cont".to_sym => search_text }
-
-      # Obsługa dodatkowych warunków
-      params.each do |key, value|
-        next unless key.start_with?("additional_condition_") && value.present?
-        condition = key.split("_").last
-        ransack_params[condition.to_sym] = value
+  
+    @poly_variants = []
+  
+    if params[:category0].present? && params[:search_text].present?
+      (0..Float::INFINITY).each do |index|
+        category_key = "category#{index}"
+        break unless params[category_key].present?
+    
+        category_values = params[category_key]
+        puts "Value of #{category_values}"
+  
+        search_text = params[:search_text]
+        ransack_params = { "#{category_values}_cont".to_sym => search_text }
+  
+        ransack = PolyVariant.ransack(ransack_params)
+  
+        @poly_variants += ransack.result(distinct: true).to_a
       end
-
-      ransack = PolyVariant.ransack(ransack_params)
-      ransack.result(distinct: true)
     else
-      PolyVariant.all
-      #@poly_variants = PolyVariant.all.as_json
+      @poly_variants = PolyVariant.all
     end
   end
-
-    # category = params[:category]
-    # if category.present?
-    #   if category == "name"
-    #     @q = PolyVariant.ransack(params[:q])
-    #     @q = @q.result(distinct: true).ransack({name_cont: params[:search_text]})
-    #     @poly_variants = @q.result(distinct: true)
-    #   elsif category == "genes_name"
-    #     @q = PolyVariant.joins(:genes).where(genes: { name: params[:search_text] }).ransack(params[:q])
-    #     @poly_variants = @q.result(distinct: true)
-    #   end
-
-
-      # elsif category == "gene"
-      #   ransack({gene_name_cont: params[:search_name, description_cont: params[:search_description] })
-      # elsif category == "disorder"
-      #   ransack({disorder_name_cont: params[:search_name, disorderdescription_cont: params[:search_description] })
-      # end
-   
-
-
+  
+  
 
   def add_new_search_option
     # logic that will determine which partial to display

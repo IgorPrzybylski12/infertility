@@ -1,5 +1,6 @@
 <%= form_with(url: poly_variants_path, method: 'get', class: 'w-full') do |form| %>
   <div class="flex items-center justify-between" data-controller="form">
+    <div id="additional_conditions">
     <div id="conditions_group">
       <% excluded_attributes = ['id', 'created_at', 'updated_at', 'position0', 'poly_variant_id', 'gene_product_id', 'data_source_id', 'data_source', 'data_sourceable_id', 'ds_authors_ids'] %>
 
@@ -18,32 +19,35 @@
           ["Score value between Poly Variant and Data Source", "score_value_poly_variant_to_data_source"]
         ]]
       ] %>
-
-      <%= form.select :category, grouped_options_for_select(
+      <div id='select_and_option'>
+      <%= form.select :category0, grouped_options_for_select(
         grouped_options.map { |group, options| [group, options] }
       ), { prompt: 'Select a category' }, { class: 'mb-0 ml-2', id: 'select0' } %>
 
       <%= form.text_field :poly_variant_name_search_text, placeholder: 'Must contain', class: '', value: params[:search_text], name: 'search_text' %>
+      </div>
     </div>
-
-    <div id="additional_conditions">
-      <!-- Dynamicznie dodane pola wyboru będą się tutaj pojawiać -->
-    </div>
-
+  </div>
+    
     <button type="button" id="add_condition_button">Add Condition</button>
     
     <%= form.submit 'Search', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
-  <div id="poly-variants-data" data-poly-variants="<%= @poly_variants_attributes.to_json %>">
 </div>
 <% end %>
 
 <script>
+    var conditionCounter = 0;
+
     document.getElementById('add_condition_button').addEventListener('click', function() {
-        var selectField = document.getElementById('select0');
+        conditionCounter++;
+
+        var selectField = document.getElementById('select_and_option');
         var clonedSelectField = selectField.cloneNode(true); 
-    
-        clonedSelectField.setAttribute('id', 'additional_select_field');
+        var selectId = 'additional_select_field_' + conditionCounter;
+
+        clonedSelectField.setAttribute('id', selectId);
+        clonedSelectField.querySelector('select').setAttribute('name', 'category' + conditionCounter);
 
         document.getElementById('additional_conditions').appendChild(clonedSelectField);
     });
