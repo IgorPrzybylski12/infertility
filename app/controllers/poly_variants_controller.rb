@@ -11,11 +11,10 @@ class PolyVariantsController < ApplicationController
     mi_rnas = MiRna.all
     proteins = Protein.all
   
-    search_text = params[:search_text]
-  
     @poly_variants = []
   
-    if params[:category0].present? && params[:search_text].present?
+    
+    unless params[:category0].nil? || params[:search_text0].nil?
       (0..Float::INFINITY).each do |index|
         category_key = "category#{index}"
         if index == 0
@@ -23,14 +22,14 @@ class PolyVariantsController < ApplicationController
         else
           search_key = "search_text#{index}"
         end
-        break unless params[category_key].present?
-    
+        break if params[category_key].nil?
+        puts "a"
+        
         category_values = params[category_key]
         searach_values = params[search_key]
         puts "Value of #{category_values}"
         puts "Search text: #{searach_values}"
   
-        search_text = params[:search_text]
         ransack_params = { "#{category_values}_cont".to_sym => searach_values }
   
         ransack = PolyVariant.ransack(ransack_params)
