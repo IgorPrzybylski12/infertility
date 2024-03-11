@@ -1,4 +1,5 @@
 class PolyVariantsController < ApplicationController
+  include PolyVariantsHelper
   before_action :set_poly_variant, only: %i[ show edit update destroy ]
 
   # GET /poly_variants or /poly_variants.json
@@ -10,58 +11,18 @@ class PolyVariantsController < ApplicationController
     gene_products = GeneProduct.all
     mi_rnas = MiRna.all
     proteins = Protein.all
-  
-    @poly_variants = []
-  
-    
-    unless params[:category0].nil? || params[:search_text0].nil?
-      (0..Float::INFINITY).each do |index|
-        category_key = "category#{index}"
-        if index == 0
-          search_key = "search_text"
-        else
-          search_key = "search_text#{index}"
-        end
-        break if params[category_key].nil?
-        puts "a"
-        
-        category_values = params[category_key]
-        searach_values = params[search_key]
-        puts "Value of #{category_values}"
-        puts "Search text: #{searach_values}"
-  
-        ransack_params = { "#{category_values}_cont".to_sym => searach_values }
-  
-        ransack = PolyVariant.ransack(ransack_params)
-  
-        @poly_variants += ransack.result(distinct: true).to_a
-      end
-    else
-      @poly_variants = PolyVariant.all
-    end
+
+    @search = ransack_params
+    @poly_variants  = ransack_result
   end
   
-  
-
-  def add_new_search_option
-    # logic that will determine which partial to display
-    chosen_partial  = if params[:category] == 'Option 1'
-                        'partial_to_display'
-                      elsif params[:category] == 'Option 2'
-                        'another_partial_to_display'
-                      else
-                        'placeholder_text'
-                      end
-
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.update(
-          :div_to_replace, partial: chosen_partial
-        )
-      end
-    end
+  def advanced_search
+    @search = ransack_params
+    @search.build_grouping unless @search.groupings.any?
+    @poly_variants  = ransack_result
   end
 
+  
   def hello_test
     Rails.logger.debug("HELLOOOOOOOO")
     respond_to do |format|
@@ -141,5 +102,13 @@ class PolyVariantsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def poly_variant_params
       params.require(:poly_variant).permit(:name, :poly_frequency)
+    end
+
+    def ransack_params
+      PolyVariant.includes(:genes).ransack(params[:q])
+    end
+
+    def ransack_result
+      @search.result(distinct: user_wants_distinct_results?)
     end
 end
