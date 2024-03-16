@@ -1,28 +1,32 @@
-<%= tag.h1 'Advanced User Search' %>
+
 <%= tag.header link_to_toggle_search_modes %>
 
-<%= search_form_for(
-    @search,
-    url: poly_variants_path,
-    html: { method: :post }
-  ) do |f| %>
-
-  <% setup_search_form(f) %>
+<%= search_form_for @search do |f| %>
 
   <%= tag.fieldset do %>
-    <%= tag.legend 'Sorting' %>
-    <%= f.sort_fields do |s| %>
-      <%= render 'sort_fields', f: s %>
+    <%= tag.legend 'User' %>
+    <%= tag.ul do %>
+      <%= tag.li do %>
+        <%= f.label :name_cont %>
+        <%= f.text_field :name_cont %>
+      <% end %>
     <% end %>
-    <%= button_to_add_fields(f, :sort) %>
   <% end %>
 
   <%= tag.fieldset do %>
-    <%= tag.legend 'Condition Groups' %>
-    <%= f.grouping_fields do |g| %>
-      <%= render 'grouping_fields', f: g %>
+    <%= tag.legend "User's Posts" %>
+    <%= tag.ul do %>
+      <%= tag.li do %>
+        <%= f.label :genes_name_cont %>
+        <%= f.text_field :genes_name_cont %>
+      <% end %>
+
+      <%= tag.li do %>
+        <%= f.label :genes_gene_products_proteins_name_cont %>
+        <%= f.text_field :genes_gene_products_protein_name_cont %>
+      <% end %>
+      
     <% end %>
-    <%= button_to_add_fields(f, :grouping) %>
   <% end %>
 
   <%= display_distinct_label_and_check_box %>
@@ -30,3 +34,4 @@
 <% end %>
 
 <%= render 'results' %>
+

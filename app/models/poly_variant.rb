@@ -35,7 +35,7 @@ class PolyVariant < ApplicationRecord
     # Allowlist the PolyVariant model attributes for sorting, except +password_digest+.
     #
     # The +full_name+ ransacker is also not included because error-prone in SQL
-    # ORDER clauses and provided no additional functionality over +first_name+.
+    # ORDER clauses and provided no additional functionality over +name+.
     #
     def self.ransortable_attributes(auth_object = nil)
       column_names - ["password_digest"]
@@ -59,8 +59,6 @@ class PolyVariant < ApplicationRecord
     #
     ransacker :full_name do |parent|
       Arel::Nodes::InfixOperation.new("||",
-        Arel::Nodes::InfixOperation.new("||",
-          parent.table[:first_name], Arel::Nodes.build_quoted(" ")),
-        parent.table[:last_name])
+          parent.table[:name], Arel::Nodes.build_quoted(" "))
     end
 end   

@@ -13,11 +13,11 @@ module PolyVariantsHelper
     end
   
     def poly_variant_column_headers
-      %i(id first_name last_name email created_at updated_at).freeze
+      %i(id name created_at updated_at).freeze
     end
   
     def poly_variant_column_fields
-      %i(id first_name last_name email created updated).freeze
+      %i(id name created updated).freeze
     end
   
     def results_limit
@@ -25,12 +25,12 @@ module PolyVariantsHelper
       10
     end
   
-    def post_title_length
+    def gene_title_length
       # max number of characters in genes titles to display
       14
     end
   
-    def post_title_header_labels
+    def gene_title_header_labels
       %w(1 2 3).freeze
     end
   
@@ -48,17 +48,13 @@ module PolyVariantsHelper
   
     def display_distinct_label_and_check_box
       tag.section do
-        check_box_tag(:distinct, "1", poly_variant_wants_distinct_results?, class: :cbx) +
+        check_box_tag(:distinct, "1", user_wants_distinct_results?, class: :cbx) +
         label_tag(:distinct, "Return distinct records")
       end
     end
   
     def user_wants_distinct_results?
       params[:distinct].to_i == 1
-    end
-  
-    def display_query_sql()
-      tag.p("SQL:") + tag.code(poly_variants.to_sql)
     end
   
     def display_results_header(count)
@@ -73,7 +69,7 @@ module PolyVariantsHelper
       poly_variant_column_headers.reduce(String.new) do |string, field|
         string << (tag.th sort_link(search, field, method: action))
       end +
-      post_title_header_labels.reduce(String.new) do |str, i|
+      gene_title_header_labels.reduce(String.new) do |str, i|
         str << (tag.th "Post #{i} title")
       end
     end
@@ -93,8 +89,8 @@ module PolyVariantsHelper
     end
   
     def display_poly_variant_genes(genes)
-      genes.reduce(String.new) do |string, post|
-        string << (tag.td truncate(post.title, length: post_title_length))
+      genes.reduce(String.new) do |string, gene|
+        string << (tag.td truncate(gene.name, length: gene_title_length))
       end
       .html_safe
     end
