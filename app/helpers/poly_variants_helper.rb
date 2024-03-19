@@ -9,9 +9,13 @@ module PolyVariantsHelper
     end
   
     def link_to_toggle_search_modes
-        link_to("Go to Simple mode", poly_variants_path)
+      if action_name == "advanced_search"
+        link_to("Go to Simple mode", users_path)
+      else
+        link_to("Go to Advanced mode", advanced_search_poly_variants_path)
+      end    
     end
-  
+    
     def poly_variant_column_headers
       %i(id name created_at updated_at).freeze
     end

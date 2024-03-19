@@ -97,6 +97,7 @@ class PolyVariantsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_poly_variant
       @poly_variant = PolyVariant.find(params[:id])
+
     end
 
     # Only allow a list of trusted parameters through.
@@ -111,4 +112,3 @@ class PolyVariantsController < ApplicationController
     def ransack_result
       @search.result(distinct: user_wants_distinct_results?)
     end
-end
