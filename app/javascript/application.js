@@ -1,6 +1,15 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
+import { Application } from "@hotwired/stimulus"
 import "@hotwired/turbo-rails"
 import "controllers"
+
+const application = Application.start()
+
+// Configure Stimulus development experience
+application.debug = false
+window.Stimulus   = application
+
+export { application }
 
 window.callTurboAction = (event) => {
     console.log('Hello, Stimulus!', event);
@@ -17,3 +26,6 @@ window.callTurboAction = (event) => {
       .then((response) => response.text())
       .then((text) => window.Turbo.renderStreamMessage(text));
   };
+//= require jquery
+//= require jquery_ujs
+//= require ransack

@@ -10,7 +10,7 @@ module PolyVariantsHelper
   
     def link_to_toggle_search_modes
       if action_name == "advanced_search"
-        link_to("Go to Simple mode", users_path)
+        link_to("Go to Simple mode", poly_variants_path)
       else
         link_to("Go to Advanced mode", advanced_search_poly_variants_path)
       end    

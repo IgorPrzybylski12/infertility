@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :poly_variants, only: :index do
-    match "advanced_search" => "users#advanced_search",
+    match "advanced_search" => "poly_variants#advanced_search",
           on: :collection, via: [:get, :post], as: :advanced_search
   end
 

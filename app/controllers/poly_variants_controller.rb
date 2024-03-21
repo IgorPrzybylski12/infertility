@@ -112,3 +112,4 @@ class PolyVariantsController < ApplicationController
     def ransack_result
       @search.result(distinct: user_wants_distinct_results?)
     end
+  end
