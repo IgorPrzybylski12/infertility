@@ -70,33 +70,57 @@ module PolyVariantsHelper
     end
   
     def display_sort_column_headers(search)
-      poly_variant_column_headers.reduce(String.new) do |string, field|
-        string << (tag.th sort_link(search, field, method: action))
-      end +
-      gene_title_header_labels.reduce(String.new) do |str, i|
-        str << (tag.th "Post #{i} title")
-      end
+      tag.th("Poly Variant Name") + "\n" +
+      tag.th("Gene Product Name") + "\n" +
+      tag.th("Data Source") + "\n" +
+      tag.th("Disorder") + "\n"
     end
+    
+    
   
     def display_search_results(objects)
       objects.limit(results_limit).reduce(String.new) do |string, object|
         string << (tag.tr display_search_results_row(object))
       end
     end
-  
+    
     def display_search_results_row(object)
-      poly_variant_column_fields.reduce(String.new) do |string, field|
-        string << (tag.td object.send(field))
+      poly_variant_name = object.name
+    
+      poly_vx_ds_record = object.poly_vx_ds.first
+    
+      if poly_vx_ds_record.present?
+        poly_variant = poly_vx_ds_record.poly_variant
+        disorder = poly_vx_ds_record.disorder
+    
+        gene_product_name = poly_variant.genes.first.name if poly_variant.genes.present?
+        data_source = poly_variant.scores.first.data_source if poly_variant.scores.present?
+        disorder_name = disorder.name if disorder.present?
+    
+        tag.td(poly_variant_name) +
+        tag.td(gene_product_name) +
+        tag.td(data_source) +
+        tag.td(disorder_name)
+      else
+        tag.td(poly_variant_name) +
+        tag.td('') +
+        tag.td('') +
+        tag.td('')
       end
-      .html_safe +
-      display_poly_variant_genes(object.genes)
     end
-  
-    def display_poly_variant_genes(genes)
-      genes.reduce(String.new) do |string, gene|
+    
+    
+    def display_poly_variant_genes(poly_variant)
+      genes_html = poly_variant.genes.reduce(String.new) do |string, gene|
         string << (tag.td truncate(gene.name, length: gene_title_length))
       end
-      .html_safe
+    
+      poly_variant_html = tag.td(truncate(poly_variant.name, length: gene_title_length)) # Dodanie nazwy poly variant jako dodatkowej kolumny
+    
+      (genes_html + poly_variant_html).html_safe
     end
+    
+    
+    
   
 end

@@ -26,4 +26,4 @@ window.callTurboAction = (event) => {
       .then((text) => window.Turbo.renderStreamMessage(text));
   };
 
-import { Application } from "./application";
+import { Application } from "../application";
